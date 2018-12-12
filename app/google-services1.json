@@ -1,0 +1,197 @@
+{
+  "project_info": {
+    "project_number": "843636807891",
+    "firebase_url": "https://android-push-test-d2baf.firebaseio.com",
+    "project_id": "android-push-test-d2baf",
+    "storage_bucket": "android-push-test-d2baf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843636807891:android:7cb43628c30554d5",
+        "android_client_info": {
+          "package_name": "com.mobifin.lbsagent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843636807891-qk4o64fim4np5hmdu6ul2cnbhlelmlrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGYbqbwWiMircDbMMv9NG-roQ0-fjF3Rs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843636807891:android:3505b9c1f06dd67f",
+        "android_client_info": {
+          "package_name": "com.panamax.swrvedemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843636807891-qk4o64fim4np5hmdu6ul2cnbhlelmlrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGYbqbwWiMircDbMMv9NG-roQ0-fjF3Rs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843636807891:android:e6a7440b53226d46",
+        "android_client_info": {
+          "package_name": "com.wizall.agent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843636807891-qk4o64fim4np5hmdu6ul2cnbhlelmlrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGYbqbwWiMircDbMMv9NG-roQ0-fjF3Rs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843636807891:android:8e100ed3d585f786",
+        "android_client_info": {
+          "package_name": "com.example.daksheshkhatri.exprimental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843636807891-qk4o64fim4np5hmdu6ul2cnbhlelmlrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGYbqbwWiMircDbMMv9NG-roQ0-fjF3Rs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843636807891:android:4f4e3b6919c3f5fa",
+        "android_client_info": {
+          "package_name": "com.www.icecreamapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843636807891-qk4o64fim4np5hmdu6ul2cnbhlelmlrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGYbqbwWiMircDbMMv9NG-roQ0-fjF3Rs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843636807891:android:0e15c6d1500ae779",
+        "android_client_info": {
+          "package_name": "com.icecream"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843636807891-qk4o64fim4np5hmdu6ul2cnbhlelmlrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGYbqbwWiMircDbMMv9NG-roQ0-fjF3Rs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

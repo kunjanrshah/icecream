@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Create Order"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/Colorwhite"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            />
+        <ImageView
+            android:id="@+id/imgCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_cancel"
+            />
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Select Category"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/Colorblack"
+        android:textSize="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        />
+
+    <com.icecream.Utils.CustomAutoCompleteView
+        android:id="@+id/myautocomplete"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/Colorblack"
+        android:textSize="16dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:hint="Category"
+        android:textCursorDrawable="@null"
+        android:textColorHint="@color/colorGrey"
+        android:background="@drawable/button_round_grey"
+        android:completionThreshold="2" >
+   </com.icecream.Utils.CustomAutoCompleteView>
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/Colorblack"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:singleLine="true"
+        android:visibility="gone"
+        android:textColorHint="@color/colorGrey"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/button_round_grey"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Select Product"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/Colorblack"
+        android:textSize="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        />
+
+
+    <com.icecream.Utils.CustomAutoCompleteView
+        android:id="@+id/myautocompleteProduct"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/Colorblack"
+        android:textSize="16dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:inputType="text"
+        android:singleLine="true"
+        android:hint="Product"
+        android:textCursorDrawable="@null"
+        android:textColorHint="@color/colorGrey"
+        android:background="@drawable/button_round_grey"
+        android:completionThreshold="2" >
+    </com.icecream.Utils.CustomAutoCompleteView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Select Quantity"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/Colorblack"
+        android:textSize="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        />
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinnerQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/Colorblack"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:entries="@array/array_Quantity"
+        android:textColorHint="@color/Colorblack"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/button_round_grey"
+        android:visibility="gone"
+
+        />
+
+    <EditText
+        android:id="@+id/edtQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="16dp"
+        android:hint="Quantity"
+        android:gravity="center"
+        android:maxLength="3"
+        android:text="0"
+        android:textCursorDrawable="@null"
+        android:inputType="numberDecimal"
+        android:textColor="@color/Colorblack"
+        android:background="@drawable/button_round_grey"
+        />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="ADD"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textColor="@color/Colorwhite"
+        android:background="@color/colorPrimary"
+        android:textSize="16dp"
+        />
+
+
+</LinearLayout>

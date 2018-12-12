@@ -1,0 +1,14 @@
+
+<resources>
+
+    <dimen name="txt12">12dp</dimen>
+    <dimen name="txt15">15dp</dimen>
+    <dimen name="txt18">18dp</dimen>
+    <dimen name="txt20">20dp</dimen>
+    <dimen name="txt22">22dp</dimen>
+    <dimen name="txt25">25dp</dimen>
+
+
+
+
+</resources>

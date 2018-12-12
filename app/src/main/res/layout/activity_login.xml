@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@mipmap/background1"
+    >
+    <LinearLayout
+        android:id="@+id/lnUpper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@color/colorPrimary"
+        >
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"
+            />
+        <TextView
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="Ice-Creams"
+            android:textColor="#F1D164"
+            android:textSize="@dimen/txt20"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_below="@+id/lnUpper"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:theme="@style/TextInputLayoutStyle">
+
+            <EditText
+                android:id="@+id/edtUsername"
+                style="@style/EditTextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:imeOptions="actionNext"
+                android:inputType="text|textNoSuggestions"
+                android:hint="Username"
+                android:textSize="@dimen/txt15"
+                android:maxLines="1"
+                android:paddingLeft="6dp"
+                android:textCursorDrawable="@null" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:theme="@style/TextInputLayoutStyle">
+
+            <EditText
+                android:id="@+id/edtPassword"
+                style="@style/EditTextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:imeOptions="actionDone"
+                android:hint="Password"
+                android:textSize="@dimen/txt15"
+                android:inputType="textPassword|textNoSuggestions"
+                android:maxLines="1"
+                android:paddingLeft="6dp"
+                android:textCursorDrawable="@null" />
+        </android.support.design.widget.TextInputLayout>
+        <Button
+            android:id="@+id/btnSignIn"
+            style="@style/roundButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:textSize="@dimen/txt18"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

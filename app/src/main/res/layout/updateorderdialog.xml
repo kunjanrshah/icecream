@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Update Order"
+        android:gravity="center"
+        android:textColor="@color/Colorwhite"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycl_orders"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_below="@+id/txtTitle"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="UPDATE"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/recycl_orders"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/Colorwhite"
+        android:background="@color/colorPrimary"
+        android:textSize="16dp"
+        />
+
+
+</RelativeLayout>

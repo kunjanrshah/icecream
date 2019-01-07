@@ -18,7 +18,7 @@ public class MyApplication extends Application {
     private static Context context;
     private static Context ACTIVITYCONTEXT = null;
     private static ProgressDialogFragment progressDialogFragment;
-    public static String BASE_URL="http://livebroadcastevents.com/vanilla/api/";
+    public static String BASE_URL="http://patelicecream.in/admin/api/";
     public static long RippleEffectsTime=500;
     public void onCreate() {
         super.onCreate();

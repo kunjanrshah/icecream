@@ -36,7 +36,7 @@ public class CreatedOrdersAdapter extends RecyclerView.Adapter<CreatedOrdersAdap
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName,txtcategory,txtQty,txtPrice;
+        public TextView txtName,txtcategory,txtQty,txtPrice,txtPackingType;
 
         public ImageView imgDelete;
         public LinearLayout lnMainlayout;
@@ -46,6 +46,7 @@ public class CreatedOrdersAdapter extends RecyclerView.Adapter<CreatedOrdersAdap
             txtName = (TextView) view.findViewById(R.id.txtName);
             txtcategory = (TextView) view.findViewById(R.id.txtcategory);
             txtQty = (TextView) view.findViewById(R.id.txtQty);
+            txtPackingType= (TextView) view.findViewById(R.id.txtPackingType);
             txtPrice = (TextView) view.findViewById(R.id.txtPrice);
             imgDelete= (ImageView) view.findViewById(R.id.imgDelete);
             lnMainlayout= (LinearLayout) view.findViewById(R.id.lnMainlayout);
@@ -69,8 +70,8 @@ public class CreatedOrdersAdapter extends RecyclerView.Adapter<CreatedOrdersAdap
         holder.txtcategory.setText(arrOrders.get(position).CategoryName);
 
         Double totalPrice=Double.parseDouble(arrOrders.get(position).PricePerKG) * (Integer.parseInt(arrOrders.get(position).Qty));
-
-        holder.txtPrice.setText(""+totalPrice);
+        holder.txtPackingType.setText(arrOrders.get(position).PackingType);
+        holder.txtPrice.setText("Rs. "+totalPrice);
         holder.txtQty.setText(arrOrders.get(position).Qty);
 
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
@@ -78,18 +79,12 @@ public class CreatedOrdersAdapter extends RecyclerView.Adapter<CreatedOrdersAdap
             public void onClick(View v) {
 
                 arrOrders.remove(position);
-
                 Fragment oldFragment=activityContext.getFragmentManager().findFragmentById(R.id.fragmentmain);
-
                 if(oldFragment instanceof FragmentCreateOrderListing){
                     ((FragmentCreateOrderListing)oldFragment).getTotalPrice();
-                    ((FragmentCreateOrderListing)oldFragment).getTotalQuantity();
-
+                   // ((FragmentCreateOrderListing)oldFragment).getTotalQuantity();
                 }
-
-
                 notifyDataSetChanged();
-
             }
         });
 

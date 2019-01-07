@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,34 +13,22 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.google.gson.Gson;
 import com.icecream.Activities.HomeActivity;
-import com.icecream.Fragments.FragmentPendingOrders;
-import com.icecream.Fragments.FragmentPendingOrdersDetail;
-import com.icecream.Models.PendingOrder.Msg;
-import com.icecream.Models.PendingOrder.OrderDetail;
-import com.icecream.Models.PendingOrder.PendingOrderResponse;
+import com.icecream.Fragments.FragmentCancelledOrders;
+import com.icecream.Fragments.FragmentCancelledOrdersDetail;
+import com.icecream.Models.CancelledOrders.Msg;
+import com.icecream.Models.CancelledOrders.OrderDetail;
 import com.icecream.R;
 import com.icecream.Utils.MyApplication;
 import com.icecream.Utils.SharepreferenceUtils;
@@ -58,7 +45,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -70,14 +56,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdapter.MyViewHolder> {
+public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrdersAdapter.MyViewHolder> {
 
     private List<Msg> arrOrders;
     private Activity activityContext;
     SharepreferenceUtils sharepreferenceUtils;
     Dialog dialog;
 
-    public PendingOrdersAdapter(Activity activity, List<Msg> arrResouceslist) {
+    public CancelledOrdersAdapter(Activity activity, List<Msg> arrResouceslist) {
         this.arrOrders =arrResouceslist;
         this.activityContext=activity;
         sharepreferenceUtils=new SharepreferenceUtils(activity);
@@ -108,7 +94,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.raw_pendingorders, parent, false);
+                .inflate(R.layout.raw_cancelledorders, parent, false);
  
         return new MyViewHolder(itemView);
     }
@@ -143,7 +129,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
                         FragmentTransaction transaction = activityContext.getFragmentManager()
                                 .beginTransaction();
                         Fragment newFragment;
-                        newFragment = new FragmentPendingOrdersDetail();
+                        newFragment = new FragmentCancelledOrdersDetail();
                         String strFragmentTag = newFragment.toString();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Details", arrOrders.get(position));
@@ -219,12 +205,12 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         RecyclerView recycl_orders= (RecyclerView) dialog.findViewById(R.id.recycl_orders);
         Button btnUpdate= (Button) dialog.findViewById(R.id.btnUpdate);
 
-        UpdateOrderDetailAdapter  adapter=new UpdateOrderDetailAdapter(activityContext,msg.getOrderDetails());
+       // UpdateOrderDetailAdapter  adapter=new UpdateOrderDetailAdapter(activityContext,msg.getOrderDetails());
         LinearLayoutManager llm = new LinearLayoutManager(activityContext.getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recycl_orders.setLayoutManager(llm);
         recycl_orders.setItemAnimator(new DefaultItemAnimator());
-        recycl_orders.setAdapter(adapter);
+     //   recycl_orders.setAdapter(adapter);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,7 +219,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
                  if (MyApplication.isInternetAvailable(activityContext)) {
                      dialog.dismiss();
 
-                    new CallWS(UpdateOrderDetailAdapter.arrOrders,msg.getOrderId(),pos).execute("");
+                 //   new CallWS(UpdateOrderDetailAdapter.arrOrders,msg.getOrderId(),pos).execute("");
 
                 } else {
                     ((HomeActivity)activityContext).ShowAlert("Internet connection not available.");
@@ -320,7 +306,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
 
                 if (loginObj.getInt("status") == 1) {
 
-                    ((HomeActivity) activityContext).MenuItemsClicks("PendingOrders");
+                    ((HomeActivity) activityContext).MenuItemsClicks("CancelledOrders");
 
                     ((HomeActivity) activityContext).ShowAlert("Order Update Successfully");
                 } else {
@@ -339,10 +325,10 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
     private void callWebserviceCancelOrder( String orderID) {
 
         WebserviceInterface api= RetrofitAPI.getObject();
-        Call<String> pending=api.CancelOrder("CancelOrder",orderID);
+        Call<String> Cancelled=api.CancelOrder("CancelOrder",orderID);
 
         MyApplication.showProgressDialog(activityContext); // show progressDialog
-        pending.enqueue(new Callback<String>() {
+        Cancelled.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -359,8 +345,8 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
 
                             Fragment currentFragment=activityContext.getFragmentManager().findFragmentById(R.id.fragmentmain);
 
-                            if(currentFragment  instanceof FragmentPendingOrders){
-                                ((FragmentPendingOrders) currentFragment).callWebservice();
+                            if(currentFragment  instanceof FragmentCancelledOrders){
+                                ((FragmentCancelledOrders) currentFragment).callWebservice();
                             }
                         }
 

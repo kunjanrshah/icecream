@@ -16,39 +16,41 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.icecream.Activities.HomeActivity;
-import com.icecream.Adapters.CompleteOrderDetailAdapter;
-import com.icecream.Models.CompleteOrders.CompleteOrderResponse;
-import com.icecream.Models.CompleteOrders.Msg;
+import com.icecream.Adapters.PendingOrderDetailAdapter;
+import com.icecream.Models.CancelledOrders.CancelledOrderResponse;
+import com.icecream.Models.PendingOrder.Msg;
+import com.icecream.Models.PendingOrder.PendingOrderResponse;
 import com.icecream.R;
+import com.icecream.Utils.SharepreferenceUtils;
 
 
-public class FragmentCompleteOrdersDetail extends Fragment implements View.OnClickListener{
+/**
+ * Created by mukesh-ubnt on 2/5/17.
+ */
+
+public class FragmentCancelledOrdersDetail extends Fragment implements View.OnClickListener{
 
     private Context context;
     private Button imgMenu,imgBack;
-    private TextView txtTitle,txtDate,txtName,txtAmount;;
-    //    SharepreferenceUtils preferences;
+    private TextView txtTitle,txtDate,txtName,txtAmount;
+    SharepreferenceUtils preferences;
     RelativeLayout root;
+    String ActionType="CancelledOrders";
     RecyclerView recycl_orders;
-    String ActionType="CompletedOrders";
-    CompleteOrderResponse OrderResponse;
+    CancelledOrderResponse cancelledOrderResponse;
     LinearLayout lnNoRecords;
     TextView txtNoRecords;
-    CompleteOrderDetailAdapter adapter;
+  //  CancelledOrderDetailAdapter adapter;
     Msg detailResponse;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_ordersdetail, null);
         this.context = getActivity();
-//        preferences=new SharepreferenceUtils(context);
-//        loginResponse=preferences.getLoginResponse();
+        preferences=new SharepreferenceUtils(context);
         InitControls(view);
         ClicksListener();
-
-
         return view;
     }
 
@@ -71,10 +73,12 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
         recycl_orders= (RecyclerView) v.findViewById(R.id.recycl_orders);
         txtNoRecords= (TextView) v.findViewById(R.id.txtNoRecords);
         lnNoRecords= (LinearLayout) v.findViewById(R.id.lnNoRecords);
-        txtTitle.setText("Order Detail");
+
         txtDate= (TextView) v.findViewById(R.id.txtDate);
         txtName= (TextView) v.findViewById(R.id.txtName);
         txtAmount= (TextView) v.findViewById(R.id.txtAmount);
+
+        txtTitle.setText("Order Detail");
 
         Bundle bundle = getArguments();
         detailResponse= (Msg) bundle.getSerializable("Details");
@@ -82,7 +86,8 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
         String date[]=detailResponse.getOrderDate().split(" ");
         txtDate.setText(date[0]);
         txtName.setText(detailResponse.getFullName());
-        txtAmount.setText(detailResponse.getTotalAmount());
+        txtAmount.setText(detailResponse.getActualAmount());
+
 
         SetAdapter();
 
@@ -118,12 +123,12 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
     }
 
     private  void SetAdapter(){
-        adapter=new CompleteOrderDetailAdapter(getActivity(),detailResponse.getOrderDetails());
+     //   adapter=new CancelledOrderDetailAdapter(getActivity(),detailResponse.getOrderDetails());
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recycl_orders.setLayoutManager(llm);
         recycl_orders.setItemAnimator(new DefaultItemAnimator());
-        recycl_orders.setAdapter(adapter);
+     //  recycl_orders.setAdapter(adapter);
 
     }
 }

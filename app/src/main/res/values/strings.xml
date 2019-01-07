@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">IceCream</string>
+    <string name="total">Qty:3\nRs. 408.0</string>
+    <string name="product_category">Product/\nCategory</string>
 
 
     <string-array name="array_Quantity">

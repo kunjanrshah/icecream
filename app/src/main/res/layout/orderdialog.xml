@@ -2,52 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:orientation="vertical">
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
 
-        >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Create Order"
-            android:gravity="center"
             android:layout_centerInParent="true"
-            android:textColor="@color/Colorwhite"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            />
+            android:text="Create Order"
+            android:textColor="@color/Colorwhite"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/imgCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginRight="15dp"
-            android:src="@drawable/ic_cancel"
-            />
-    </RelativeLayout>
-
-
+            android:src="@drawable/ic_cancel" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Select Category"
         android:layout_marginLeft="10dp"
-        android:textColor="@color/Colorblack"
-        android:textSize="16dp"
+        android:layout_marginTop="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:text="Select Category"
+        android:textColor="@color/Colorblack"
+        android:textSize="16dp"
 
         />
 
@@ -57,47 +53,65 @@
         android:layout_height="45dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:background="@drawable/button_round_grey"
+        android:completionThreshold="2"
+        android:gravity="center_vertical"
+        android:hint="Select Category"
+        android:maxLines="1"
+        android:visibility="gone"
         android:paddingLeft="10dp"
         android:textColor="@color/Colorblack"
-        android:textSize="16dp"
-        android:gravity="center_vertical"
-        android:maxLines="1"
-        android:hint="Category"
-        android:textCursorDrawable="@null"
         android:textColorHint="@color/colorGrey"
-        android:background="@drawable/button_round_grey"
-        android:completionThreshold="2" >
-   </com.icecream.Utils.CustomAutoCompleteView>
+        android:textCursorDrawable="@null"
+        android:textSize="16dp"/>
+
     <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/spinnerCategory"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
-        android:textColor="@color/Colorblack"
-        android:textSize="14dp"
-        android:maxLines="1"
-        android:inputType="text"
-        android:singleLine="true"
-        android:visibility="gone"
-        android:textColorHint="@color/colorGrey"
-        android:spinnerMode="dropdown"
+        style="@style/Widget.AppCompat.DropDownItem.Spinner"
         android:background="@drawable/button_round_grey"
-
-        />
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/Colorblack"
+        android:textColorHint="@color/colorGrey"
+        android:textSize="14dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Select Product"
         android:layout_marginLeft="10dp"
-        android:textColor="@color/Colorblack"
-        android:textSize="16dp"
+        android:layout_marginTop="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:text="Select Product"
+        android:textColor="@color/Colorblack"
+        android:textSize="16dp"
 
+        />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinnerProduct"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/button_round_grey"
+        android:inputType="text"
+        android:maxLines="1"
+
+        android:singleLine="true"
+        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/Colorblack"
+        android:textColorHint="@color/colorGrey"
+        android:textSize="14dp"
         />
 
 
@@ -107,49 +121,49 @@
         android:layout_height="45dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:paddingLeft="10dp"
-        android:textColor="@color/Colorblack"
-        android:textSize="16dp"
-        android:gravity="center_vertical"
-        android:maxLines="1"
-        android:inputType="text"
-        android:singleLine="true"
-        android:hint="Product"
-        android:textCursorDrawable="@null"
-        android:textColorHint="@color/colorGrey"
         android:background="@drawable/button_round_grey"
-        android:completionThreshold="2" >
-    </com.icecream.Utils.CustomAutoCompleteView>
+        android:completionThreshold="2"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:textColor="@color/Colorblack"
+        android:textColorHint="@color/colorGrey"
+        android:textCursorDrawable="@null"
+        android:textSize="16dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Select Quantity"
         android:layout_marginLeft="10dp"
-        android:textColor="@color/Colorblack"
-        android:textSize="16dp"
+        android:layout_marginTop="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:text="Select Quantity"
+        android:textColor="@color/Colorblack"
+        android:textSize="16dp"
 
         />
+
     <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/spinnerQuantity"
+        style="@style/Widget.AppCompat.DropDownItem.Spinner"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
-        android:textColor="@color/Colorblack"
-        android:textSize="14dp"
-        android:maxLines="1"
-        android:entries="@array/array_Quantity"
-        android:textColorHint="@color/Colorblack"
-        android:spinnerMode="dropdown"
         android:background="@drawable/button_round_grey"
-        android:visibility="gone"
-
-        />
+        android:entries="@array/array_Quantity"
+        android:gravity="center"
+        android:maxLines="1"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/Colorblack"
+        android:textColorHint="@color/Colorblack"
+        android:textSize="14dp" />
 
     <EditText
         android:id="@+id/edtQuantity"
@@ -157,28 +171,29 @@
         android:layout_height="45dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:textSize="16dp"
-        android:hint="Quantity"
-        android:gravity="center"
-        android:maxLength="3"
-        android:text="0"
-        android:textCursorDrawable="@null"
-        android:inputType="numberDecimal"
-        android:textColor="@color/Colorblack"
+        android:visibility="gone"
         android:background="@drawable/button_round_grey"
-        />
+        android:gravity="center"
+        android:hint="Quantity"
+
+        android:inputType="numberDecimal"
+        android:maxLength="3"
+        android:text=""
+        android:textColor="@color/Colorblack"
+        android:textCursorDrawable="@null"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="ADD"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="@color/Colorwhite"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/colorPrimary"
-        android:textSize="16dp"
-        />
+        android:text="ADD"
+        android:textColor="@color/Colorwhite"
+        android:textSize="16dp" />
 
 
 </LinearLayout>

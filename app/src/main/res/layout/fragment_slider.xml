@@ -2,10 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@mipmap/background1"
-
-    >
+    android:background="@android:color/white"
+    android:layout_height="fill_parent"  >
 
     <ScrollView
         android:id="@+id/Sc_main"
@@ -23,7 +21,6 @@
                 android:id="@+id/lnProfile"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="@drawable/ripple_white_theme"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="8dp">
@@ -47,11 +44,15 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:text="Ice-Creams"
-                    android:textColor="#F1D164"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/txt20"
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
             <LinearLayout
                 android:id="@+id/lnCreateOrder"
                 android:layout_width="match_parent"
@@ -64,8 +65,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:text="Create Order"
+                    android:layout_marginLeft="20dp"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/txt18"
@@ -73,10 +75,9 @@
                     android:layout_marginBottom="20dp"/>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="1dp"
                     android:background="@color/colorPrimary" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/lnPendingOrders"
@@ -89,8 +90,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:text="Pending Orders"
+                    android:layout_marginLeft="20dp"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/txt18"
@@ -98,7 +100,7 @@
                     android:layout_marginBottom="20dp"/>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="1dp"
                     android:background="@color/colorPrimary" />
             </LinearLayout>
 
@@ -112,20 +114,20 @@
                 android:orientation="vertical"
                 android:paddingTop="20dp">
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:text="Confirm Orders"
                     android:textAllCaps="true"
+                    android:layout_marginLeft="20dp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/txt18"
                     android:textStyle="bold"
                     android:layout_marginBottom="20dp"/>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="1dp"
                     android:background="@color/colorPrimary" />
             </LinearLayout>
 
@@ -141,16 +143,43 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:text="Complete Orders"
                     android:textAllCaps="true"
+                    android:layout_marginLeft="20dp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/txt18"
                     android:textStyle="bold"
                     android:layout_marginBottom="20dp"/>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnCancelledOrders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Cancelled Orders"
+                    android:textAllCaps="true"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/txt18"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="20dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
                     android:background="@color/colorPrimary" />
             </LinearLayout>
 
@@ -166,7 +195,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="left"
                     android:text="Logout"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
@@ -175,7 +205,7 @@
                     android:textStyle="bold" />
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="1dp"
                     android:background="@color/colorPrimary" />
             </LinearLayout>
 

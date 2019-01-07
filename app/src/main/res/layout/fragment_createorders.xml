@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/root"
-    android:background="@mipmap/background2">
-
-
+    android:background="@android:color/white">
     <include
         android:id="@+id/layoutMain"
         layout="@layout/layout_top"
@@ -25,69 +23,43 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
             android:paddingRight="5dp"
+            android:visibility="gone"
             android:gravity="center_vertical"
             >
             <TextView
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                android:gravity="center"
-                android:text="Product"
-                android:textColor="@color/colorPrimary"
-
-                />
-
-            <TextView
-                android:id="@+id/txtcategory"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="16dp"
-                android:text="Category"
-                android:gravity="center"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-
-                />
+                android:textSize="18dp"
+               android:layout_marginLeft="30dp"
+                android:text="@string/product_category"
+                android:textColor="@color/colorPrimary"/>
 
             <TextView
                 android:id="@+id/txtQty"
-                android:layout_width="match_parent"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="16dp"
-                android:text="Qty"
-                android:textStyle="bold"
-                android:gravity="left"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:text="Qty/PK.Type"
                 android:textColor="@color/colorPrimary"
-                />
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:text="Price"
-                android:gravity="left"
-                android:textColor="@color/colorPrimary"
-                />
-            <ImageView
-                android:id="@+id/imgDelete"
+                android:id="@+id/txtTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete"
-                android:layout_gravity="center"
-                android:layout_marginRight="3dp"
-                android:visibility="gone"
-
-                />
+                android:textColor="@color/colorPrimary"
+                android:text="@string/total"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:layout_marginRight="3dp"/>
 
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
@@ -153,13 +125,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:visibility="gone"
-        android:background="@color/colorPrimary"
-        android:tint="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
         android:src="@android:drawable/ic_input_add"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="40dp" />
-
 
 </RelativeLayout>

@@ -90,14 +90,10 @@ public class FragmentPendingOrders extends Fragment implements View.OnClickListe
         txtTitle.setText("Pending Orders");
 
         if (MyApplication.isInternetAvailable(getActivity())) {
-
             callWebservice();
-
         } else {
             ((HomeActivity)getActivity()).ShowAlert("Internet connection not available.");
         }
-
-
     }
 
     private void ClicksListener(){

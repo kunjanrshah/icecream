@@ -18,10 +18,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.icecream.Activities.HomeActivity;
-import com.icecream.Adapters.CompleteOrdersAdapter;
-import com.icecream.Adapters.ConfirmOrdersAdapter;
-import com.icecream.Models.CompleteOrders.CompleteOrderResponse;
-import com.icecream.Models.ConfirmOrder.ConfirmOrderResponse;
+import com.icecream.Adapters.CancelledOrdersAdapter;
+import com.icecream.Models.CancelledOrders.CancelledOrderResponse;
 import com.icecream.R;
 import com.icecream.Utils.MyApplication;
 import com.icecream.Utils.SharepreferenceUtils;
@@ -35,32 +33,33 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FragmentCompleteOrders extends Fragment implements View.OnClickListener{
+/**
+ * Created by mukesh-ubnt on 2/5/17.
+ */
+
+public class FragmentCancelledOrders extends Fragment implements View.OnClickListener{
 
     private Context context;
     private Button imgMenu;
     private TextView txtTitle;
     SharepreferenceUtils preferences;
     RelativeLayout root;
+    String ActionType="CancelledOrders";
     RecyclerView recycl_orders;
-    String ActionType="CompletedOrders";
-    CompleteOrderResponse OrderResponse;
+    CancelledOrderResponse  cancelledOrderResponse;
+
     LinearLayout lnNoRecords;
     TextView txtNoRecords;
-    CompleteOrdersAdapter adapter;
-
+    CancelledOrdersAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_orders, null);
-        this.context = getActivity();
+        context=getActivity();
         preferences=new SharepreferenceUtils(getActivity());
-//        loginResponse=preferences.getLoginResponse();
         InitControls(view);
         ClicksListener();
-
-
         return view;
     }
 
@@ -80,7 +79,8 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
         recycl_orders= (RecyclerView) v.findViewById(R.id.recycl_orders);
         txtNoRecords= (TextView) v.findViewById(R.id.txtNoRecords);
         lnNoRecords= (LinearLayout) v.findViewById(R.id.lnNoRecords);
-        txtTitle.setText("Complete Orders");
+
+        txtTitle.setText("Cancelled Orders");
 
         if (MyApplication.isInternetAvailable(getActivity())) {
 
@@ -89,6 +89,8 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
         } else {
             ((HomeActivity)getActivity()).ShowAlert("Internet connection not available.");
         }
+
+
     }
 
     private void ClicksListener(){
@@ -100,7 +102,6 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
-
 
 
     @Override
@@ -115,18 +116,20 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
         }
 
     }
-    private void callWebservice() {
+
+    public void callWebservice() {
 
         WebserviceInterface api= RetrofitAPI.getObject();
-        Call<String> pending;
+        Call<String> cancelled;
 
         if(preferences.getloginType().trim().equals("Distributor")){
-            pending=api.getPendingOrders(ActionType,preferences.getDistributionResponse().DistributorCode);
+            cancelled=api.getCancelledOrders(ActionType,preferences.getDistributionResponse().DistributorCode);
         }else{
-            pending=api.getPendingOrders(ActionType,null);
+            cancelled=api.getCancelledOrders(ActionType,null);
         }
+
         MyApplication.showProgressDialog(getActivity()); // show progressDialog
-        pending.enqueue(new Callback<String>() {
+        cancelled.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -141,15 +144,15 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
                         if(loginObj.getInt("status")==1){
 
                             Gson gson = new Gson();
-                            OrderResponse = gson.fromJson(strResponse, CompleteOrderResponse.class);
+                            cancelledOrderResponse = gson.fromJson(strResponse, CancelledOrderResponse.class);
                             SetAdapter();
 
                         }else{
 
                             recycl_orders.setVisibility(View.GONE);
                             lnNoRecords.setVisibility(View.VISIBLE);
-                            txtNoRecords.setText("No Confirm Orders");
-                            ((HomeActivity)getActivity()).ShowAlert("No Confirm Orders");
+                            txtNoRecords.setText("No Cancelled Records");
+                            ((HomeActivity)getActivity()).ShowAlert("No Cancelled Records");
                         }
 
                     }catch (Exception e){
@@ -168,13 +171,15 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
             }
         });
     }
+
+
     private  void SetAdapter(){
-        adapter=new CompleteOrdersAdapter(getActivity(),OrderResponse.getMsg().get(0));
+      //  adapter=new CancelledOrdersAdapter(getActivity(),cancelledOrderResponse.getMsg().get(0));
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recycl_orders.setLayoutManager(llm);
         recycl_orders.setItemAnimator(new DefaultItemAnimator());
-        recycl_orders.setAdapter(adapter);
+      //  recycl_orders.setAdapter(adapter);
 
     }
 }

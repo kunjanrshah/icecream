@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class CompleteOrdersAdapter extends RecyclerView.Adapter<CompleteOrdersAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView txtName,txtDate,txtAmount;
 
-        public ImageView imgEdit,imgDone;
+        public ImageView imgEdit,imgDone,imgCancel;
         public LinearLayout lnMainlayout;
 
         public MyViewHolder(View view) {
@@ -44,6 +45,7 @@ public class CompleteOrdersAdapter extends RecyclerView.Adapter<CompleteOrdersAd
             txtAmount = (TextView) view.findViewById(R.id.txtAmount);
             imgEdit= (ImageView) view.findViewById(R.id.imgEdit);
             imgDone= (ImageView) view.findViewById(R.id.imgDone);
+            imgCancel= (ImageView) view.findViewById(R.id.imgCancel);
             lnMainlayout= (LinearLayout) view.findViewById(R.id.lnMainlayout);
         }
     }
@@ -64,40 +66,46 @@ public class CompleteOrdersAdapter extends RecyclerView.Adapter<CompleteOrdersAd
         holder.txtName.setText(arrOrders.get(position).getFullName());
         holder.txtAmount.setText(arrOrders.get(position).getTotalAmount());
         String date[]=arrOrders.get(position).getOrderDate().split(" ");
-
+        Log.d(CompleteOrdersAdapter.class.getSimpleName(),"date: "+arrOrders.get(position).getOrderDate().split(" "));
         holder.txtDate.setText(date[0]);
-
 
         holder.lnMainlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
+                FragmentTransaction transaction = activityContext.getFragmentManager().beginTransaction();
+                Fragment newFragment;
+                newFragment = new FragmentCompleteOrdersDetail();
+                String strFragmentTag = newFragment.toString();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Details", arrOrders.get(position));
+                newFragment .setArguments(bundle);
+                transaction.add(R.id.fragmentmain, newFragment,strFragmentTag);
+                transaction.addToBackStack(strFragmentTag);
+                transaction.commit();
+
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
-                        FragmentTransaction transaction = activityContext.getFragmentManager()
-                                .beginTransaction();
-                        Fragment newFragment;
-                        newFragment = new FragmentCompleteOrdersDetail();
-                        String strFragmentTag = newFragment.toString();
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("Details", arrOrders.get(position));
-                        newFragment .setArguments(bundle);
-                        transaction.add(R.id.fragmentmain, newFragment,
-                                strFragmentTag);
-                        transaction.addToBackStack(strFragmentTag);
-                        transaction.commit();
+
 
                     }
                 }, MyApplication.RippleEffectsTime);
+            }
+        });
+        holder.imgDone.setVisibility(View.VISIBLE);
+        holder.imgEdit.setVisibility(View.GONE);
+        holder.imgCancel.setVisibility(View.GONE);
 
-
+        holder.imgDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
-        holder.imgDone.setVisibility(View.GONE);
-        holder.imgEdit.setVisibility(View.GONE);
+
     }
     @Override
     public int getItemCount() {

@@ -26,7 +26,7 @@ public class FragmentSliderMenu extends Fragment implements View.OnClickListener
     SliderMenuClicks menuClicks;
     ImageView imgProfile;
     TextView txtUsername;
-    LinearLayout  lnPendingOrders, lnConfirmOrders, lnCreateOrder, lnLogout,lnCompleteOrders;
+    LinearLayout  lnCreateOrder,lnPendingOrders, lnConfirmOrders,lnCompleteOrders,lnCancelledOrders,lnLogout;
     SharepreferenceUtils sharepreferenceUtils;
 
     RelativeLayout root;
@@ -50,7 +50,7 @@ public class FragmentSliderMenu extends Fragment implements View.OnClickListener
         imgProfile = (ImageView) view.findViewById(R.id.imgProfile);
         txtUsername = (TextView) view.findViewById(R.id.txtUsername);
 
-
+        lnCancelledOrders=(LinearLayout) view.findViewById(R.id.lnCancelledOrders);
         lnConfirmOrders = (LinearLayout) view.findViewById(R.id.lnConfirmOrders);
         lnPendingOrders = (LinearLayout) view.findViewById(R.id.lnPendingOrders);
         lnCreateOrder= (LinearLayout) view.findViewById(R.id.lnCreateOrder);
@@ -98,7 +98,6 @@ public class FragmentSliderMenu extends Fragment implements View.OnClickListener
             case R.id.lnPendingOrders:
                 menuClicks.MenuItemsClicks("PendingOrders");
                 break;
-
             case R.id.lnLogout:
                 menuClicks.MenuItemsClicks("Logout");
                 break;
@@ -108,10 +107,12 @@ public class FragmentSliderMenu extends Fragment implements View.OnClickListener
             case R.id.lnCompleteOrders:
                 menuClicks.MenuItemsClicks("CompleteOrder");
                 break;
+            case R.id.lnCancelledOrders:
+                menuClicks.MenuItemsClicks("CancelledOrder");
+                break;
             default:
                 menuClicks.MenuItemsClicks("Home");
                 break;
-
         }
     }
 }

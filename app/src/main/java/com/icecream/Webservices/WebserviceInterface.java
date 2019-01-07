@@ -33,6 +33,9 @@ public interface WebserviceInterface {
     @GET("orders.php")
     Call<String> getPendingOrders(@Query("ActionType") String ActionType, @Query("DistributorCode") String DistributorCode);
 
+    @GET("orders.php")
+    Call<String> getCancelledOrders(@Query("ActionType") String ActionType, @Query("DistributorCode") String DistributorCode);
+
 
     @FormUrlEncoded
     @POST("orders.php")

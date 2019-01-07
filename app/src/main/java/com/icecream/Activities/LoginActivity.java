@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText edtUsername,edtPassword;
     private  Button btnSignIn;
-    private String ActionType="AccountAccess",Username,DeviceId="No Token",Password,LoginType="User"; // Distributor  , User
+    private String ActionType="AccountAccess",Username,DeviceId="No Token",Password,LoginType="User"; // Distributor, User
     private Context mcontext;
     private SharepreferenceUtils preferences;
 
@@ -101,15 +101,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         try{
                             String strResponse=response.body();
                             JSONObject loginObj=new JSONObject(strResponse);
-
                             if(loginObj.getInt("status")==1){
-
                                 JSONArray loginArray=loginObj.getJSONArray("msg").getJSONArray(0);
                                 JSONObject detailObj=loginArray.getJSONObject(0);
-
-
                                 if(strResponse.contains("DistributorCode")){
-
                                     DistributionResponse distributor=new DistributionResponse();
                                     distributor.DistributorId=detailObj.getString("DistributorId");
                                     distributor.FullName=detailObj.getString("FullName");
@@ -118,22 +113,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     distributor.DistributorCode=detailObj.getString("DistributorCode");
                                     preferences.saveDistributionResponse(distributor);
                                     preferences.setloginType("Distributor");
-
                                 }else if(strResponse.contains("isAdmin")){
                                     UserResponse user=new UserResponse();
                                     user.UserId=detailObj.getString("UserId");
                                     user.FullName=detailObj.getString("FullName");
                                     user.Username=detailObj.getString("Username");
                                     user.isAdmin=detailObj.getString("isAdmin");
-
                                     preferences.setloginType("Admin");
-
                                 }
                                 preferences.setAutologin(true);
-                                Intent homeIntent=new Intent(mcontext,HomeActivity.class);
+                                Intent homeIntent=new Intent(mcontext, HomeActivity.class);
                                 startActivity(homeIntent);
                                 finish();
-
                             }else{
                                 ShowAlert("Invalid Username or Password");
                             }

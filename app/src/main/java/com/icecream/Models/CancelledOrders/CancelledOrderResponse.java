@@ -3,7 +3,7 @@ package com.icecream.Models.CancelledOrders;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.icecream.Models.CompleteOrders.Msg;
+import com.icecream.Models.CancelledOrders.Msg;
 
 import java.util.List;
 

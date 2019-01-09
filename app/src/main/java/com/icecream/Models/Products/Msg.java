@@ -33,6 +33,32 @@ public class Msg {
     @SerializedName("Category")
     @Expose
     private String category;
+    @SerializedName("CartonAvailability")
+    @Expose
+    private String CartonAvailability;
+
+    public String getCartonAvailability() {
+        return CartonAvailability;
+    }
+
+    public void setCartonAvailability(String cartonAvailability) {
+        CartonAvailability = cartonAvailability;
+    }
+
+    public String getCartonQty() {
+        return CartonQty;
+    }
+
+    public void setCartonQty(String cartonQty) {
+        CartonQty = cartonQty;
+    }
+
+    @SerializedName("CartonQty")
+    @Expose
+    private String CartonQty;
+
+
+
 
     public String getProductId() {
         return productId;

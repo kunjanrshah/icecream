@@ -1,6 +1,7 @@
 package com.icecream.Fragments;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,8 +48,6 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
 //        loginResponse=preferences.getLoginResponse();
         InitControls(view);
         ClicksListener();
-
-
         return view;
     }
 
@@ -60,7 +59,6 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
     }
 
     private void InitControls(View v) {
-
 
         imgMenu = (Button) v.findViewById(R.id.imgMenu);
         imgBack= (Button) v.findViewById(R.id.imgBack);
@@ -85,8 +83,6 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
         txtAmount.setText(detailResponse.getTotalAmount());
 
         SetAdapter();
-
-
     }
 
     private void ClicksListener(){
@@ -111,7 +107,15 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
             case R.id.root:
                 break;
             case R.id.imgBack:
-                getActivity().onBackPressed();
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);
+                Fragment newFragment;
+                newFragment = new FragmentCompleteOrders();
+                String strFragmentTag = newFragment.toString();
+                transaction.add(R.id.fragmentmain, newFragment,strFragmentTag);
+                transaction.commit();
+                //getActivity().onBackPressed();
                 break;
         }
 

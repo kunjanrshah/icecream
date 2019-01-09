@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutMain"
         android:orientation="vertical"
-        android:alpha="0.5"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         >
@@ -34,7 +33,6 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:visibility="visible"
-                android:textColor="@color/Colorwhite"
                 android:text="Order Date :"
                 />
             <TextView
@@ -44,7 +42,6 @@
                 android:textSize="16dp"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textColor="@color/Colorwhite"
                 android:text=""
                 />
         </LinearLayout>
@@ -60,7 +57,6 @@
                 android:textSize="18dp"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textColor="@color/Colorwhite"
                 android:text="Distrubutor :"
                 />
             <TextView
@@ -69,7 +65,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_weight="1"
-                android:textColor="@color/Colorwhite"
                 android:text=""
                 />
         </LinearLayout>
@@ -85,7 +80,6 @@
                 android:textSize="18dp"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textColor="@color/Colorwhite"
                 android:text="Total Amount :"
                 />
             <TextView
@@ -94,26 +88,19 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_weight="1"
-                android:textColor="@color/Colorwhite"
                 android:text=""
                 />
         </LinearLayout>
-
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lnMainlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
-        android:layout_below="@+id/lnOrder"
-
-        >
+        android:layout_below="@+id/lnOrder"     >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,9 +108,7 @@
             android:textStyle="bold"
             android:textSize="16dp"
             android:text="Product"
-            android:textColor="@color/colorPrimary"
-
-            />
+            android:textColor="@color/colorPrimary"       />
 
         <TextView
             android:layout_width="match_parent"
@@ -133,10 +118,7 @@
             android:textSize="16dp"
             android:text="Quantity"
             android:gravity="center"
-
-            android:textColor="@color/colorPrimary"
-
-            />
+            android:textColor="@color/colorPrimary"      />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,9 +127,7 @@
             android:textSize="16dp"
             android:text="Total"
             android:gravity="center"
-            android:textColor="@color/colorPrimary"
-
-            />
+            android:textColor="@color/colorPrimary"    />
 
     </LinearLayout>
 

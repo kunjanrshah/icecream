@@ -1,6 +1,7 @@
 package com.icecream.Fragments;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -119,7 +120,14 @@ public class FragmentConfirmOrdersDetail extends Fragment implements View.OnClic
             case R.id.root:
                 break;
             case R.id.imgBack:
-                getActivity().onBackPressed();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);
+                Fragment newFragment;
+                newFragment = new FragmentConfirmOrders();
+                String strFragmentTag = newFragment.toString();
+                transaction.add(R.id.fragmentmain, newFragment,strFragmentTag);
+                transaction.commit();
+                //getActivity().onBackPressed();
                 break;
         }
 

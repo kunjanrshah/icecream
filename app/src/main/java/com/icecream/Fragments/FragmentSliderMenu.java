@@ -71,10 +71,9 @@ public class FragmentSliderMenu extends Fragment implements View.OnClickListener
         lnPendingOrders.setOnClickListener(this);
         lnCreateOrder.setOnClickListener(this);
         lnCompleteOrders.setOnClickListener(this);
+        lnCancelledOrders.setOnClickListener(this);
         lnLogout.setOnClickListener(this);
-
         root.setOnClickListener(this);
-
     }
 
     @Override

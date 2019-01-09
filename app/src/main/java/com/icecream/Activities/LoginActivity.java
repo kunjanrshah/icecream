@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText edtUsername,edtPassword;
     private  Button btnSignIn;
-    private String ActionType="AccountAccess",Username,DeviceId="No Token",Password,LoginType="User"; // Distributor, User
+    private String ActionType="AccountAccess",Username,DeviceId="No Token",Password,LoginType="Distributor"; // Distributor, User
     private Context mcontext;
     private SharepreferenceUtils preferences;
 

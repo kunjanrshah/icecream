@@ -120,16 +120,16 @@ public class FragmentCancelledOrders extends Fragment implements View.OnClickLis
     public void callWebservice() {
 
         WebserviceInterface api= RetrofitAPI.getObject();
-        Call<String> cancelled;
+        Call<String> Pending;
 
         if(preferences.getloginType().trim().equals("Distributor")){
-            cancelled=api.getCancelledOrders(ActionType,preferences.getDistributionResponse().DistributorCode);
+            Pending=api.getPendingOrders(ActionType,preferences.getDistributionResponse().DistributorCode);
         }else{
-            cancelled=api.getCancelledOrders(ActionType,null);
+            Pending=api.getPendingOrders(ActionType,null);
         }
 
         MyApplication.showProgressDialog(getActivity()); // show progressDialog
-        cancelled.enqueue(new Callback<String>() {
+        Pending.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -174,12 +174,12 @@ public class FragmentCancelledOrders extends Fragment implements View.OnClickLis
 
 
     private  void SetAdapter(){
-      //  adapter=new CancelledOrdersAdapter(getActivity(),cancelledOrderResponse.getMsg().get(0));
+        adapter=new CancelledOrdersAdapter(getActivity(),cancelledOrderResponse.getMsg().get(0));
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recycl_orders.setLayoutManager(llm);
         recycl_orders.setItemAnimator(new DefaultItemAnimator());
-      //  recycl_orders.setAdapter(adapter);
+        recycl_orders.setAdapter(adapter);
 
     }
 }

@@ -85,7 +85,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName,txtDate,txtAmount;
+        public TextView txtName,txtDate,txtAmount,txtDate1;
 
         public ImageView imgEdit,imgDone,imgCancel;
         public LinearLayout lnMainlayout;
@@ -95,6 +95,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
             super(view);
             txtName = (TextView) view.findViewById(R.id.txtName);
             txtDate = (TextView) view.findViewById(R.id.txtDate);
+            txtDate1= (TextView) view.findViewById(R.id.txtDate1);
             txtAmount = (TextView) view.findViewById(R.id.txtAmount);
             imgEdit= (ImageView) view.findViewById(R.id.imgEdit);
             imgDone= (ImageView) view.findViewById(R.id.imgDone);
@@ -107,10 +108,8 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.raw_pendingorders, parent, false);
- 
-        return new MyViewHolder(itemView);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_pendingorders, parent, false);
+         return new MyViewHolder(itemView);
     }
  
     @Override
@@ -120,8 +119,8 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         holder.txtName.setText(arrOrders.get(position).getFullName());
         holder.txtAmount.setText(arrOrders.get(position).getActualAmount());
         final String date[]=arrOrders.get(position).getOrderDate().split(" ");
-
-        holder.txtDate.setText(date[0]);
+        String date1= MyApplication.parseDateToddMMyyyy(date[0]);
+        holder.txtDate.setText(date1);
         holder.imgCancel.setVisibility(View.VISIBLE);
 
         if(sharepreferenceUtils.getloginType().trim().equals("Admin")){
@@ -148,9 +147,8 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Details", arrOrders.get(position));
                         newFragment .setArguments(bundle);
-                        transaction.add(R.id.fragmentmain, newFragment,
-                                strFragmentTag);
-                        transaction.addToBackStack(strFragmentTag);
+                        transaction.replace(R.id.fragmentmain, newFragment,strFragmentTag);
+                      //  transaction.addToBackStack(strFragmentTag);
                         transaction.commit();
 
                     }

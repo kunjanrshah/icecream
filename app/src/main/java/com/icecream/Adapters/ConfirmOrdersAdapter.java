@@ -66,7 +66,8 @@ public class ConfirmOrdersAdapter extends RecyclerView.Adapter<ConfirmOrdersAdap
         holder.txtAmount.setText(arrOrders.get(position).getActualAmount());
         String date[]=arrOrders.get(position).getOrderDate().split(" ");
 
-        holder.txtDate.setText(date[0]);
+        String date1= MyApplication.parseDateToddMMyyyy(date[0]);
+        holder.txtDate.setText(date1);
 
 
         holder.lnMainlayout.setOnClickListener(new View.OnClickListener() {
@@ -85,9 +86,8 @@ public class ConfirmOrdersAdapter extends RecyclerView.Adapter<ConfirmOrdersAdap
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Details", arrOrders.get(position));
                         newFragment .setArguments(bundle);
-                        transaction.add(R.id.fragmentmain, newFragment,
-                                strFragmentTag);
-                        transaction.addToBackStack(strFragmentTag);
+                        transaction.replace(R.id.fragmentmain, newFragment,strFragmentTag);
+                      //  transaction.addToBackStack(strFragmentTag);
                         transaction.commit();
 
                     }

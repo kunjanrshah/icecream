@@ -59,8 +59,6 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
 //        loginResponse=preferences.getLoginResponse();
         InitControls(view);
         ClicksListener();
-
-
         return view;
     }
 
@@ -101,8 +99,6 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
         super.onSaveInstanceState(outState);
     }
 
-
-
     @Override
     public void onClick(View v) {
 
@@ -113,13 +109,10 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
             case R.id.root:
                 break;
         }
-
     }
     private void callWebservice() {
-
         WebserviceInterface api= RetrofitAPI.getObject();
         Call<String> pending;
-
         if(preferences.getloginType().trim().equals("Distributor")){
             pending=api.getPendingOrders(ActionType,preferences.getDistributionResponse().DistributorCode);
         }else{
@@ -137,34 +130,26 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
                     try{
                         String strResponse=response.body();
                         JSONObject loginObj=new JSONObject(strResponse);
-
                         if(loginObj.getInt("status")==1){
-
                             Gson gson = new Gson();
                             OrderResponse = gson.fromJson(strResponse, CompleteOrderResponse.class);
                             SetAdapter();
-
                         }else{
-
                             recycl_orders.setVisibility(View.GONE);
                             lnNoRecords.setVisibility(View.VISIBLE);
                             txtNoRecords.setText("No Confirm Orders");
                             ((HomeActivity)getActivity()).ShowAlert("No Confirm Orders");
                         }
-
                     }catch (Exception e){
 
                     }
-
                 }
-
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.e("Exceptions===",t.getMessage());
                 MyApplication.dismissProgressDialog();
                 ((HomeActivity)getActivity()).ShowAlert("Something went wrong, Plz try again later.");
-
             }
         });
     }
@@ -175,6 +160,5 @@ public class FragmentCompleteOrders extends Fragment implements View.OnClickList
         recycl_orders.setLayoutManager(llm);
         recycl_orders.setItemAnimator(new DefaultItemAnimator());
         recycl_orders.setAdapter(adapter);
-
     }
 }

@@ -11,6 +11,8 @@ public class OrderDetails {
     public String CategoryName;
     public String ProductName;
     public String Qty;
+    public String CartonAvailability;
+    public String TotalCarton;
     public String PackingType;
     public String PricePerKG;
 }

@@ -8,6 +8,10 @@ import android.net.NetworkInfo;
 
 import com.icecream.Dialogs.ProgressDialogFragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by dakshesh.khatri on 02-11-2017.
@@ -67,5 +71,23 @@ public class MyApplication extends Application {
             return true;
         }
         return false;
+    }
+
+    public static String parseDateToddMMyyyy(String strdate) {
+        String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "dd-MMM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(strdate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 }

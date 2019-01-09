@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.icecream.Activities.HomeActivity;
 import com.icecream.Fragments.FragmentCancelledOrders;
 import com.icecream.Fragments.FragmentCancelledOrdersDetail;
+import com.icecream.Fragments.FragmentCompleteOrdersDetail;
 import com.icecream.Models.CancelledOrders.Msg;
 import com.icecream.Models.CancelledOrders.OrderDetail;
 import com.icecream.R;
@@ -106,8 +107,8 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
         holder.txtName.setText(arrOrders.get(position).getFullName());
         holder.txtAmount.setText(arrOrders.get(position).getActualAmount());
         final String date[]=arrOrders.get(position).getOrderDate().split(" ");
-
-        holder.txtDate.setText(date[0]);
+        String date1= MyApplication.parseDateToddMMyyyy(date[0]);
+        holder.txtDate.setText(date1);
         holder.imgCancel.setVisibility(View.VISIBLE);
 
         if(sharepreferenceUtils.getloginType().trim().equals("Admin")){
@@ -126,17 +127,15 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
-                        FragmentTransaction transaction = activityContext.getFragmentManager()
-                                .beginTransaction();
+                        FragmentTransaction transaction = activityContext.getFragmentManager().beginTransaction();
                         Fragment newFragment;
-                        newFragment = new FragmentCancelledOrdersDetail();
+                        newFragment = new FragmentCompleteOrdersDetail();
                         String strFragmentTag = newFragment.toString();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Details", arrOrders.get(position));
                         newFragment .setArguments(bundle);
-                        transaction.add(R.id.fragmentmain, newFragment,
-                                strFragmentTag);
-                        transaction.addToBackStack(strFragmentTag);
+                        transaction.replace(R.id.fragmentmain, newFragment,strFragmentTag);
+                      //  transaction.addToBackStack(strFragmentTag);
                         transaction.commit();
 
                     }

@@ -99,6 +99,9 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
     ArrayList<String> arr_categoryId;
     ArrayList<String> arr_packingType;
     ArrayList<String> arr_price_per_kg;
+    ArrayList<String> arr_carton_qty;
+    ArrayList<String> arr_carton_availability;
+
     private Context context;
     private Button imgMenu;
     private TextView txtTitle, txtTotal;
@@ -179,7 +182,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
         Calendar now = Calendar.getInstance();
 
-        DatePickerDialog dpd = DatePickerDialog.newInstance(this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH)        );
+        DatePickerDialog dpd = DatePickerDialog.newInstance(this, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
         // If you're calling this from a support Fragment
         dpd.show(getFragmentManager(), "Datepickerdialog");
         dpd.setVersion(DatePickerDialog.Version.VERSION_2);
@@ -267,6 +270,9 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                             arr_productsId = new ArrayList<>();
                             arr_packingType = new ArrayList<>();
                             arr_price_per_kg = new ArrayList<>();
+                            arr_carton_qty = new ArrayList<>();
+                            arr_carton_availability = new ArrayList<>();
+
                             arr_products.add("Select Products");
                             arr_productsId.add("");
                             for (int i = 0; i < productsresponse.getMsg().get(0).size(); i++) {
@@ -274,6 +280,8 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                                 arr_productsId.add(productsresponse.getMsg().get(0).get(i).getProductId());
                                 arr_packingType.add(productsresponse.getMsg().get(0).get(i).getPackingType());
                                 arr_price_per_kg.add(productsresponse.getMsg().get(0).get(i).getPricePerKG());
+                                arr_carton_qty.add(productsresponse.getMsg().get(0).get(i).getCartonQty());
+                                arr_carton_availability.add(productsresponse.getMsg().get(0).get(i).getCartonAvailability());
                             }
                             ArrayAdapter productsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arr_products);
                             spinnerProduct.setAdapter(productsAdapter);
@@ -500,6 +508,8 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                     order.Qty = "" + Integer.parseInt(spinnerQuantity.getSelectedItem().toString().trim());
                     order.PackingType = arr_packingType.get(spinnerProduct.getSelectedItemPosition() - 1);
                     order.PricePerKG = arr_price_per_kg.get(spinnerProduct.getSelectedItemPosition() - 1);
+                    order.CartonAvailability = arr_carton_availability.get(spinnerProduct.getSelectedItemPosition() - 1);
+                    order.TotalCarton = arr_carton_qty.get(spinnerProduct.getSelectedItemPosition() - 1);
                     arrOrders.add(order);
                     adapter.notifyDataSetChanged();
                     //  getTotalQuantity();
@@ -537,20 +547,18 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        int month=(monthOfYear + 1);
+        int month = (monthOfYear + 1);
 
-        String months=""+month;
-        String dayOfMonths=""+dayOfMonth;
-        if(month<10)
-        {
-            months="0"+months;
+        String months = "" + month;
+        String dayOfMonths = "" + dayOfMonth;
+        if (month < 10) {
+            months = "0" + months;
         }
-        if(dayOfMonth<10)
-        {
-            dayOfMonths="0"+dayOfMonth;
+        if (dayOfMonth < 10) {
+            dayOfMonths = "0" + dayOfMonth;
         }
-        String date =  year+ "-" + months +"-"+dayOfMonths ;
-        Toast.makeText(getActivity(), "" + date, Toast.LENGTH_SHORT).show();
+        String date = year + "-" + months + "-" + dayOfMonths;
+
         if (MyApplication.isInternetAvailable(getActivity())) {
             new CallWS().execute(date);
         } else {
@@ -576,7 +584,6 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
     private class CallWS extends AsyncTask<String, String, String> {
 
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -592,7 +599,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
             try {
                 //add data
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                nameValuePairs.add(new BasicNameValuePair("date", data[0]));
+                nameValuePairs.add(new BasicNameValuePair("OrderDate", data[0]));
                 nameValuePairs.add(new BasicNameValuePair("ActionType", "CreateOrder"));
                 nameValuePairs.add(new BasicNameValuePair("DistributorCode", preferences.getDistributionResponse().DistributorCode));
                 for (int i = 0; i < arrOrders.size(); i++) {
@@ -602,8 +609,11 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
                     nameValuePairs.add(new BasicNameValuePair(strIDs, arrOrders.get(i).ProductID));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, arrOrders.get(i).Qty));
+                    if (arrOrders.get(i).CartonAvailability.equalsIgnoreCase("1")) {
+                        String strCartons = "ProductList[" + i + "][TotalCarton]";
+                        nameValuePairs.add(new BasicNameValuePair(strCartons, arrOrders.get(i).TotalCarton));
+                    }
                 }
-
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 //execute http post
                 HttpResponse response = httpclient.execute(httppost);

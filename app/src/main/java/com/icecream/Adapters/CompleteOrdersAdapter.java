@@ -67,29 +67,31 @@ public class CompleteOrdersAdapter extends RecyclerView.Adapter<CompleteOrdersAd
         holder.txtAmount.setText(arrOrders.get(position).getTotalAmount());
         String date[]=arrOrders.get(position).getOrderDate().split(" ");
         Log.d(CompleteOrdersAdapter.class.getSimpleName(),"date: "+arrOrders.get(position).getOrderDate().split(" "));
-        holder.txtDate.setText(date[0]);
+        String date1= MyApplication.parseDateToddMMyyyy(date[0]);
+        holder.txtDate.setText(date1);
+
 
         holder.lnMainlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                FragmentTransaction transaction = activityContext.getFragmentManager().beginTransaction();
-                Fragment newFragment;
-                newFragment = new FragmentCompleteOrdersDetail();
-                String strFragmentTag = newFragment.toString();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Details", arrOrders.get(position));
-                newFragment .setArguments(bundle);
-                transaction.add(R.id.fragmentmain, newFragment,strFragmentTag);
-                transaction.addToBackStack(strFragmentTag);
-                transaction.commit();
+
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
-
+                        FragmentTransaction transaction = activityContext.getFragmentManager().beginTransaction();
+                        Fragment newFragment;
+                        newFragment = new FragmentCompleteOrdersDetail();
+                        String strFragmentTag = newFragment.toString();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Details", arrOrders.get(position));
+                        newFragment .setArguments(bundle);
+                        transaction.replace(R.id.fragmentmain, newFragment,strFragmentTag);
+                      //  transaction.addToBackStack(strFragmentTag);
+                        transaction.commit();
 
                     }
                 }, MyApplication.RippleEffectsTime);

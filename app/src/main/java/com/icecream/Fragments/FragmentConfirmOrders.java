@@ -59,8 +59,6 @@ public class FragmentConfirmOrders extends Fragment implements View.OnClickListe
 //        loginResponse=preferences.getLoginResponse();
         InitControls(view);
         ClicksListener();
-
-
         return view;
     }
 
@@ -73,7 +71,6 @@ public class FragmentConfirmOrders extends Fragment implements View.OnClickListe
 
     private void InitControls(View v) {
 
-
         imgMenu = (Button) v.findViewById(R.id.imgMenu);
         txtTitle = (TextView) v.findViewById(R.id.txtTitle);
         root= (RelativeLayout) v.findViewById(R.id.root);
@@ -83,14 +80,10 @@ public class FragmentConfirmOrders extends Fragment implements View.OnClickListe
         txtTitle.setText("Confirm Orders");
 
         if (MyApplication.isInternetAvailable(getActivity())) {
-
             callWebservice();
-
         } else {
             ((HomeActivity)getActivity()).ShowAlert("Internet connection not available.");
         }
-
-
     }
 
     private void ClicksListener(){
@@ -117,7 +110,7 @@ public class FragmentConfirmOrders extends Fragment implements View.OnClickListe
         }
 
     }
-    private void callWebservice() {
+    public void callWebservice() {
 
         WebserviceInterface api= RetrofitAPI.getObject();
         Call<String> pending;

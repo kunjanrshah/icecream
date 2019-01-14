@@ -62,6 +62,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.icecream.Activities.HomeActivity.preferenceUtils;
+
 
 /**
  * Created by mukesh-ubnt on 2/5/17.
@@ -75,7 +77,8 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
     public String PackingType;
     public String PricePerKG;
     //  public CustomAutoCompleteView myAutoComplete, myautocompleteProduct;
-    public AppCompatSpinner spinnerCategory, spinnerProduct, spinnerQuantity;
+    public AppCompatSpinner spinnerCategory, spinnerProduct;
+    //, spinnerQuantity;
     // adapter for auto-complete
     public ArrayAdapter<Msg> myAdapter;
     public ArrayAdapter<com.icecream.Models.Products.Msg> myProductAdapter;
@@ -92,8 +95,9 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
     TextView txtNoRecords;
     CreatedOrdersAdapter adapter;
     String CategoryID = "0", ProductID = "0";
-    Button btnSubmit;
-    LinearLayout lnRecords, lnMainlayout;
+    public static Button btnSubmit;
+    public static LinearLayout lnMainlayout;
+    LinearLayout lnRecords;
     ArrayList<String> arr_productsId;
     ArrayList<String> arr_products;
     ArrayList<String> arr_categoryId;
@@ -104,6 +108,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
     private Context context;
     private Button imgMenu;
+    private EditText edtQuantity;
     private TextView txtTitle, txtTotal;
     private List<OrderDetails> arrOrders = new ArrayList<>();
 
@@ -118,7 +123,6 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
         ClicksListener();
         return view;
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -139,7 +143,12 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
         btnSubmit = (Button) v.findViewById(R.id.btnSubmit);
         lnMainlayout = (LinearLayout) v.findViewById(R.id.lnMainlayout);
         txtTotal = (TextView) v.findViewById(R.id.txtTotal);
-        txtTitle.setText("Create Orders");
+
+        if (preferenceUtils.getloginType().trim().equals("Admin")) {
+            txtTitle.setText("Upadate Orders");
+        } else {
+            txtTitle.setText("Create Orders");
+        }
 
         if (MyApplication.isInternetAvailable(getActivity())) {
             callWebserviceCategory();
@@ -337,19 +346,20 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
         dialog.setContentView(layout);
 
 
-        final EditText edtQuantity = (EditText) dialog.findViewById(R.id.edtQuantity);
+        edtQuantity = (EditText) dialog.findViewById(R.id.edtQuantity);
         Button btnAdd = (Button) dialog.findViewById(R.id.btnAdd);
         final ImageView imgCancel = (ImageView) dialog.findViewById(R.id.imgCancel);
         //  myautocompleteProduct = (CustomAutoCompleteView) dialog.findViewById(R.id.myautocompleteProduct);
 
         spinnerProduct = (AppCompatSpinner) dialog.findViewById(R.id.spinnerProduct);
         spinnerCategory = (AppCompatSpinner) dialog.findViewById(R.id.spinnerCategory);
-        spinnerQuantity = (AppCompatSpinner) dialog.findViewById(R.id.spinnerQuantity);
 
-        String[] some_array = getResources().getStringArray(R.array.array_Quantity);
-        ArrayAdapter arr_quality = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, some_array);
-        arr_quality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerQuantity.setAdapter(arr_quality);
+     //   spinnerQuantity = (AppCompatSpinner) dialog.findViewById(R.id.spinnerQuantity);
+
+      //  String[] some_array = getResources().getStringArray(R.array.array_Quantity);
+      //  ArrayAdapter arr_quality = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, some_array);
+      //  arr_quality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+      //  spinnerQuantity.setAdapter(arr_quality);
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -488,6 +498,10 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
         imgCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
                 dialog.dismiss();
             }
         });
@@ -505,7 +519,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                     order.CategoryID = CategoryID;
                     order.CategoryName = CategoryName;
                     order.ProductName = ProductName;
-                    order.Qty = "" + Integer.parseInt(spinnerQuantity.getSelectedItem().toString().trim());
+                    order.Qty = "" + Integer.parseInt(edtQuantity.getText().toString().trim());
                     order.PackingType = arr_packingType.get(spinnerProduct.getSelectedItemPosition() - 1);
                     order.PricePerKG = arr_price_per_kg.get(spinnerProduct.getSelectedItemPosition() - 1);
                     order.CartonAvailability = arr_carton_availability.get(spinnerProduct.getSelectedItemPosition() - 1);
@@ -517,8 +531,9 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
                     // myAutoComplete.setText("");
                     // myautocompleteProduct.setText("");
-                    edtQuantity.setText("0");
-                    edtQuantity.setSelection(edtQuantity.getText().toString().length());
+                    edtQuantity.setText("");
+                    spinnerProduct.setSelection(0);
+                   // edtQuantity.setSelection(edtQuantity.getText().toString().length());
                     Toast.makeText(getActivity(), "Order Item is added to OrderList.", Toast.LENGTH_SHORT).show();
                     btnSubmit.setVisibility(View.VISIBLE);
                     lnMainlayout.setVisibility(View.VISIBLE);

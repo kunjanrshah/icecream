@@ -73,13 +73,11 @@ public class UpdateOrderDetailAdapter extends RecyclerView.Adapter<UpdateOrderDe
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if(holder.edtQuantity.getText().toString().trim().length()>0) {
-
                     arrOrders.get(position).setActualQty(holder.edtQuantity.getText().toString());
                 }else{
                     arrOrders.get(position).setActualQty("0");
                 }
                 holder.edtQuantity.setSelection(holder.edtQuantity.getText().toString().length());
-
             }
 
             @Override
@@ -87,17 +85,11 @@ public class UpdateOrderDetailAdapter extends RecyclerView.Adapter<UpdateOrderDe
 
             }
         });
-
-
-
         try {
             notifyDataSetChanged();
-
         }catch (Exception e){
 
         }
-
-
         holder.lnMainlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

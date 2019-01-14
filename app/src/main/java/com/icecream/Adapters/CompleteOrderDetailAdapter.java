@@ -24,7 +24,7 @@ public class CompleteOrderDetailAdapter extends RecyclerView.Adapter<CompleteOrd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName,txtQty,txtAmount;
+        public TextView txtName,txtQty,txtAmount,txtCategory;
 
         public LinearLayout lnMainlayout;
 
@@ -34,6 +34,7 @@ public class CompleteOrderDetailAdapter extends RecyclerView.Adapter<CompleteOrd
             txtQty = (TextView) view.findViewById(R.id.txtQty);
             txtAmount = (TextView) view.findViewById(R.id.txtAmount);
             lnMainlayout= (LinearLayout) view.findViewById(R.id.lnMainlayout);
+            txtCategory= (TextView) view.findViewById(R.id.txtCategory);
         }
     }
 
@@ -51,9 +52,9 @@ public class CompleteOrderDetailAdapter extends RecyclerView.Adapter<CompleteOrd
 
 
         holder.txtName.setText(arrOrders.get(position).getProductName());
-        holder.txtAmount.setText(arrOrders.get(position).getActualTotalPrice());
+        holder.txtAmount.setText("Rs. "+arrOrders.get(position).getActualTotalPrice());
         holder.txtQty.setText(arrOrders.get(position).getActualQty());
-
+        holder.txtCategory.setText(arrOrders.get(position).getCategory());
 
         holder.lnMainlayout.setOnClickListener(new View.OnClickListener() {
             @Override

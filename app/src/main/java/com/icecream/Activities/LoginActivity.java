@@ -144,8 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     private void ShowAlert(String msg){
 
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(LoginActivity.this, R.style.AppCompatAlertDialogStyle);
+        AlertDialog.Builder builder =  new AlertDialog.Builder(LoginActivity.this, R.style.AppCompatAlertDialogStyle);
         builder.setTitle(getResources().getString(R.string.app_name));
         builder.setMessage(msg);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

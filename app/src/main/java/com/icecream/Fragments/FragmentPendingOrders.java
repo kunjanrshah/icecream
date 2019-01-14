@@ -117,7 +117,6 @@ public class FragmentPendingOrders extends Fragment implements View.OnClickListe
             case R.id.root:
                 break;
         }
-
     }
 
     public void callWebservice() {
@@ -145,13 +144,10 @@ public class FragmentPendingOrders extends Fragment implements View.OnClickListe
                         JSONObject loginObj=new JSONObject(strResponse);
 
                         if(loginObj.getInt("status")==1){
-
                             Gson gson = new Gson();
                             pendingOrderResponse = gson.fromJson(strResponse, PendingOrderResponse.class);
                             SetAdapter();
-
                         }else{
-
                             recycl_orders.setVisibility(View.GONE);
                             lnNoRecords.setVisibility(View.VISIBLE);
                             txtNoRecords.setText("No Pending Records");
@@ -183,6 +179,5 @@ public class FragmentPendingOrders extends Fragment implements View.OnClickListe
         recycl_orders.setLayoutManager(llm);
         recycl_orders.setItemAnimator(new DefaultItemAnimator());
         recycl_orders.setAdapter(adapter);
-
     }
 }

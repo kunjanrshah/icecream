@@ -27,13 +27,13 @@ public class PendingOrderDetailAdapter extends RecyclerView.Adapter<PendingOrder
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName,txtQty,txtAmount;
-
+        public TextView txtName,txtQty,txtAmount,txtCategory;
         public LinearLayout lnMainlayout;
 
         public MyViewHolder(View view) {
             super(view);
             txtName = (TextView) view.findViewById(R.id.txtName);
+            txtCategory= (TextView) view.findViewById(R.id.txtCategory);
             txtQty = (TextView) view.findViewById(R.id.txtQty);
             txtAmount = (TextView) view.findViewById(R.id.txtAmount);
             lnMainlayout= (LinearLayout) view.findViewById(R.id.lnMainlayout);
@@ -43,9 +43,7 @@ public class PendingOrderDetailAdapter extends RecyclerView.Adapter<PendingOrder
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.raw_orderdetail, parent, false);
- 
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_orderdetail, parent, false);
         return new MyViewHolder(itemView);
     }
  
@@ -54,11 +52,9 @@ public class PendingOrderDetailAdapter extends RecyclerView.Adapter<PendingOrder
 
 
         holder.txtName.setText(arrOrders.get(position).getProductName());
-        holder.txtAmount.setText(arrOrders.get(position).getActualTotalPrice());
-
-
+        holder.txtCategory.setText(arrOrders.get(position).getCategory());
+        holder.txtAmount.setText("Rs. "+arrOrders.get(position).getActualTotalPrice());
         holder.txtQty.setText(arrOrders.get(position).getActualQty());
-
 
         holder.lnMainlayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +67,4 @@ public class PendingOrderDetailAdapter extends RecyclerView.Adapter<PendingOrder
     public int getItemCount() {
         return arrOrders.size();
     }
-
-
-
 }

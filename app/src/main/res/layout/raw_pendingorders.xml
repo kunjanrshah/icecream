@@ -34,17 +34,17 @@
                     android:id="@+id/txtCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:alpha="0.6"
                     android:text="#102060"
                     android:textColor="@color/Colorblack"
                     android:textSize="18dp"
-                    android:textStyle="bold"  />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:alpha="0.6"
                     android:text="AjayPatel"
                     android:textColor="@color/Colorblack"
                     android:textSize="17dp" />
@@ -53,7 +53,7 @@
                     android:id="@+id/txtDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:alpha="0.6"
                     android:gravity="left"
                     android:text="16-09-2019"
                     android:textColor="@color/Colorblack"
@@ -74,35 +74,48 @@
 
                     <ImageView
                         android:id="@+id/imgEdit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginLeft="5dp"
+                        android:visibility="gone"
                         android:layout_marginRight="5dp"
                         android:src="@drawable/ic_edit" />
 
                     <ImageView
+                        android:id="@+id/imgPending"
+                        android:visibility="gone"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_makeaspending" />
+
+                    <ImageView
                         android:id="@+id/imgDone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:visibility="gone"
+                        android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:src="@drawable/ic_done" />
 
                     <ImageView
                         android:id="@+id/imgCancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:src="@drawable/ic_delete" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txtDate1"
+                    android:id="@+id/created_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="left"
+                    android:alpha="0.6"
                     android:text="16-09-2019"
                     android:textColor="@color/Colorblack"
                     android:textSize="17dp" />
@@ -111,9 +124,9 @@
                     android:id="@+id/txtAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:gravity="center"
                     android:text="Macwan"
+                    android:alpha="0.6"
                     android:textColor="@color/Colorblack"
                     android:textSize="17dp" />
 

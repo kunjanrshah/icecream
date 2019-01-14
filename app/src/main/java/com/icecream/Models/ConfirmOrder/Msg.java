@@ -35,6 +35,19 @@ public class Msg implements Serializable {
     @SerializedName("CompanyName")
     @Expose
     private String companyName;
+
+    public String getCustomerOrderId() {
+        return CustomerOrderId;
+    }
+
+    public void setCustomerOrderId(String customerOrderId) {
+        CustomerOrderId = customerOrderId;
+    }
+
+    @SerializedName("CustomerOrderId")
+    @Expose
+    private String CustomerOrderId;
+
     @SerializedName("OrderDetails")
     @Expose
     private List<OrderDetail> orderDetails = null;

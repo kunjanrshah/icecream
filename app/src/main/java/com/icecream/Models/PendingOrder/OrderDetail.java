@@ -25,7 +25,7 @@ public class OrderDetail {
     private String actualTotalPrice;
 
     public String getProductId() {
-        return productName;
+        return ProductId;
     }
 
     public void setProductId(String productId) {

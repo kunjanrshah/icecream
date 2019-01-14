@@ -26,12 +26,12 @@ public class ConfirmOrderDetailAdapter extends RecyclerView.Adapter<ConfirmOrder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName,txtQty,txtAmount;
-
+        public TextView txtName,txtQty,txtAmount,txtCategory;
         public LinearLayout lnMainlayout;
 
         public MyViewHolder(View view) {
             super(view);
+            txtCategory= (TextView) view.findViewById(R.id.txtCategory);
             txtName = (TextView) view.findViewById(R.id.txtName);
             txtQty = (TextView) view.findViewById(R.id.txtQty);
             txtAmount = (TextView) view.findViewById(R.id.txtAmount);
@@ -42,10 +42,8 @@ public class ConfirmOrderDetailAdapter extends RecyclerView.Adapter<ConfirmOrder
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.raw_orderdetail, parent, false);
- 
-        return new MyViewHolder(itemView);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_orderdetail, parent, false);
+         return new MyViewHolder(itemView);
     }
  
     @Override
@@ -53,9 +51,9 @@ public class ConfirmOrderDetailAdapter extends RecyclerView.Adapter<ConfirmOrder
 
 
         holder.txtName.setText(arrOrders.get(position).getProductName());
-        holder.txtAmount.setText(arrOrders.get(position).getActualTotalPrice());
+        holder.txtAmount.setText("Rs. "+arrOrders.get(position).getActualTotalPrice());
         holder.txtQty.setText(arrOrders.get(position).getActualQty());
-
+        holder.txtCategory.setText(arrOrders.get(position).getCategory());
 
         holder.lnMainlayout.setOnClickListener(new View.OnClickListener() {
             @Override

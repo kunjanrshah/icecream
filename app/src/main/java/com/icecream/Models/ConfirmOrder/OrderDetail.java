@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class OrderDetail {
 
+
+    @SerializedName("ProductId")
+    @Expose
+    private String ProductId;
     @SerializedName("ProductName")
     @Expose
     private String productName;
@@ -18,6 +22,14 @@ public class OrderDetail {
     @SerializedName("ActualTotalPrice")
     @Expose
     private String actualTotalPrice;
+
+    public String getProductId() {
+        return ProductId;
+    }
+
+    public void setProductId(String productId) {
+        this.ProductId = productId;
+    }
 
     public String getProductName() {
         return productName;

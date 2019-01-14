@@ -21,6 +21,7 @@ import com.icecream.Adapters.CancelledOrderDetailAdapter;
 import com.icecream.Models.CancelledOrders.CancelledOrderResponse;
 import com.icecream.Models.CancelledOrders.Msg;
 import com.icecream.R;
+import com.icecream.Utils.MyApplication;
 import com.icecream.Utils.SharepreferenceUtils;
 
 /**
@@ -40,7 +41,11 @@ public class FragmentCancelledOrdersDetail extends Fragment implements View.OnCl
     Msg detailResponse;
     private Context context;
     private Button imgMenu, imgBack;
-    private TextView txtTitle, txtDate, txtName, txtAmount;
+    private TextView txtTitle, txtName, txtAmount;
+    private TextView txtOrderID;
+    private TextView txtCreatedDate;
+    private TextView txtRequestedDate;
+    private TextView txtQty;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -62,35 +67,42 @@ public class FragmentCancelledOrdersDetail extends Fragment implements View.OnCl
 
     private void InitControls(View v) {
 
+        Bundle bundle = getArguments();
+        detailResponse= (Msg) bundle.getSerializable("Details");
+
+        txtOrderID = (TextView) v.findViewById(R.id.txtOrderID);
+        txtCreatedDate = (TextView) v.findViewById(R.id.txtCreatedDate);
+        txtRequestedDate = (TextView) v.findViewById(R.id.txtRequestedDate);
+        txtName = (TextView) v.findViewById(R.id.txtName);
+        txtAmount = (TextView) v.findViewById(R.id.txtAmount);
+        txtQty = (TextView) v.findViewById(R.id.txtQty);
 
         imgMenu = (Button) v.findViewById(R.id.imgMenu);
-        imgBack = (Button) v.findViewById(R.id.imgBack);
+        imgBack= (Button) v.findViewById(R.id.imgBack);
         imgMenu.setVisibility(View.GONE);
         imgBack.setVisibility(View.VISIBLE);
         txtTitle = (TextView) v.findViewById(R.id.txtTitle);
-        root = (RelativeLayout) v.findViewById(R.id.root);
-        recycl_orders = (RecyclerView) v.findViewById(R.id.recycl_orders);
-        txtNoRecords = (TextView) v.findViewById(R.id.txtNoRecords);
-        lnNoRecords = (LinearLayout) v.findViewById(R.id.lnNoRecords);
-
-        txtDate = (TextView) v.findViewById(R.id.txtDate);
-        txtName = (TextView) v.findViewById(R.id.txtName);
-        txtAmount = (TextView) v.findViewById(R.id.txtAmount);
-
         txtTitle.setText("Order Detail");
 
-        Bundle bundle = getArguments();
-        detailResponse = (Msg) bundle.getSerializable("Details");
+        root= (RelativeLayout) v.findViewById(R.id.root);
+        recycl_orders= (RecyclerView) v.findViewById(R.id.recycl_orders);
+        txtNoRecords= (TextView) v.findViewById(R.id.txtNoRecords);
+        lnNoRecords= (LinearLayout) v.findViewById(R.id.lnNoRecords);
 
-        String date[] = detailResponse.getOrderDate().split(" ");
-        txtDate.setText(date[0]);
         txtName.setText(detailResponse.getFullName());
-        txtAmount.setText(detailResponse.getActualAmount());
-
+        txtAmount.setText("Rs. " + detailResponse.getActualAmount());
+        txtOrderID.setText("#" + detailResponse.getCustomerOrderId());
+        String updated = MyApplication.parseDateToddMMyyyy(detailResponse.getUpdatedOn(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
+        txtCreatedDate.setText(updated);
+        String orderdate = MyApplication.parseDateToddMMyyyy(detailResponse.getOrderDate(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
+        txtRequestedDate.setText(orderdate);
+        int qty = 0;
+        for (int i = 0; i < detailResponse.getOrderDetails().size(); i++) {
+            qty = qty + Integer.parseInt(detailResponse.getOrderDetails().get(i).getActualQty());
+        }
+        txtQty.setText("" + qty);
 
         SetAdapter();
-
-
     }
 
     private void ClicksListener() {
@@ -116,13 +128,15 @@ public class FragmentCancelledOrdersDetail extends Fragment implements View.OnCl
                 break;
             case R.id.imgBack:
 
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                ((HomeActivity) getActivity()).addFragment(new FragmentCancelledOrders());
+
+                /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);
                 Fragment newFragment;
                 newFragment = new FragmentCancelledOrders();
                 String strFragmentTag = newFragment.toString();
                 transaction.add(R.id.fragmentmain, newFragment,strFragmentTag);
-                transaction.commit();
+                transaction.commit();*/
 
                // getActivity().onBackPressed();
                 break;

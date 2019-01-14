@@ -24,6 +24,10 @@ public class MyApplication extends Application {
     private static ProgressDialogFragment progressDialogFragment;
     public static String BASE_URL="http://patelicecream.in/admin/api/";
     public static long RippleEffectsTime=500;
+    public static String yyyy_mm_dd = "yyyy-MM-dd";
+    public static String yyyy_mm_dd_hh_mm_ss = "yyyy-MM-dd HH:mm:ss";
+    public static String dd_mm_yyyy = "dd-MM-yyyy";
+
     public void onCreate() {
         super.onCreate();
         MyApplication.context = this;
@@ -54,6 +58,7 @@ public class MyApplication extends Application {
         progressDialogFragment.setCancelable(false);
     }
 
+
     public static void dismissProgressDialog() {
         try {
             if (progressDialogFragment != null) {
@@ -73,9 +78,8 @@ public class MyApplication extends Application {
         return false;
     }
 
-    public static String parseDateToddMMyyyy(String strdate) {
-        String inputPattern = "yyyy-MM-dd";
-        String outputPattern = "dd-MMM-yyyy";
+    public static String parseDateToddMMyyyy(String strdate,String inputPattern,String outputPattern) {
+
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 

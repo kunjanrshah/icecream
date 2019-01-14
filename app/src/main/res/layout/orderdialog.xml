@@ -79,7 +79,7 @@
         android:singleLine="true"
         android:spinnerMode="dropdown"
         android:textColor="@color/Colorblack"
-        android:textColorHint="@color/colorGrey"
+        android:textColorHint="@color/Colorblack"
         android:textSize="14dp" />
 
     <TextView
@@ -105,12 +105,11 @@
         android:background="@drawable/button_round_grey"
         android:inputType="text"
         android:maxLines="1"
-
         android:singleLine="true"
         style="@style/Widget.AppCompat.DropDownItem.Spinner"
         android:spinnerMode="dropdown"
         android:textColor="@color/Colorblack"
-        android:textColorHint="@color/colorGrey"
+        android:textColorHint="@color/Colorblack"
         android:textSize="14dp"
         />
 
@@ -141,7 +140,7 @@
         android:layout_marginTop="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Select Quantity"
+        android:text="Enter Quantity"
         android:textColor="@color/Colorblack"
         android:textSize="16dp"
 
@@ -160,6 +159,7 @@
         android:entries="@array/array_Quantity"
         android:gravity="center"
         android:maxLines="1"
+        android:visibility="gone"
         android:spinnerMode="dropdown"
         android:textColor="@color/Colorblack"
         android:textColorHint="@color/Colorblack"
@@ -171,11 +171,9 @@
         android:layout_height="45dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:visibility="gone"
         android:background="@drawable/button_round_grey"
         android:gravity="center"
         android:hint="Quantity"
-
         android:inputType="numberDecimal"
         android:maxLength="3"
         android:text=""

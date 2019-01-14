@@ -3,6 +3,7 @@ package com.icecream.Adapters;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Rect;
@@ -72,7 +73,7 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName,txtDate,txtAmount;
+        public TextView txtName,txtDate,txtAmount,txtCode,created_date;
 
         public ImageView imgEdit,imgDone,imgCancel;
         public LinearLayout lnMainlayout;
@@ -80,8 +81,11 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
 
         public MyViewHolder(View view) {
             super(view);
+
+            txtCode = (TextView) view.findViewById(R.id.txtCode);
             txtName = (TextView) view.findViewById(R.id.txtName);
             txtDate = (TextView) view.findViewById(R.id.txtDate);
+            created_date= (TextView) view.findViewById(R.id.created_date);
             txtAmount = (TextView) view.findViewById(R.id.txtAmount);
             imgEdit= (ImageView) view.findViewById(R.id.imgEdit);
             imgDone= (ImageView) view.findViewById(R.id.imgDone);
@@ -94,8 +98,7 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.raw_cancelledorders, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_pendingorders, parent, false);
  
         return new MyViewHolder(itemView);
     }
@@ -103,33 +106,47 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-
+        holder.txtCode.setText("#"+arrOrders.get(position).getCustomerOrderId());
         holder.txtName.setText(arrOrders.get(position).getFullName());
-        holder.txtAmount.setText(arrOrders.get(position).getActualAmount());
-        final String date[]=arrOrders.get(position).getOrderDate().split(" ");
-        String date1= MyApplication.parseDateToddMMyyyy(date[0]);
-        holder.txtDate.setText(date1);
-        holder.imgCancel.setVisibility(View.VISIBLE);
 
-        if(sharepreferenceUtils.getloginType().trim().equals("Admin")){
+        final String date[]=arrOrders.get(position).getOrderDate().split(" ");
+        String _date= MyApplication.parseDateToddMMyyyy(date[0],MyApplication.yyyy_mm_dd,MyApplication.dd_mm_yyyy);
+        holder.created_date.setText(_date);
+
+        final String date1[]=arrOrders.get(position).getUpdatedOn().split(" ");
+        String _date1= MyApplication.parseDateToddMMyyyy(date1[0],MyApplication.yyyy_mm_dd,MyApplication.dd_mm_yyyy);
+        holder.txtDate.setText(_date1);
+
+        holder.txtAmount.setText("Rs. "+arrOrders.get(position).getActualAmount());
+       /* final String date[]=arrOrders.get(position).getOrderDate().split(" ");
+        String date1= MyApplication.parseDateToddMMyyyy(date[0],MyApplication.yyyy_mm_dd,MyApplication.dd_mm_yyyy);
+        holder.txtDate.setText(date1);*/
+
+        holder.imgEdit.setVisibility(View.GONE);
+        holder.imgDone.setVisibility(View.GONE);
+        holder.imgCancel.setVisibility(View.GONE);
+
+        /*if(sharepreferenceUtils.getloginType().trim().equals("Admin")){
             holder.imgEdit.setVisibility(View.VISIBLE);
             holder.imgDone.setVisibility(View.VISIBLE);
+            holder.imgCancel.setVisibility(View.VISIBLE);
         }else{
-            holder.imgEdit.setVisibility(View.GONE);
-            holder.imgDone.setVisibility(View.GONE);
-        }
+
+        }*/
 
         holder.lnMainlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Handler handler = new Handler();
+
+                addFragment(new FragmentCancelledOrdersDetail(), position);
+               /* Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
                         FragmentTransaction transaction = activityContext.getFragmentManager().beginTransaction();
                         Fragment newFragment;
-                        newFragment = new FragmentCompleteOrdersDetail();
+                        newFragment = new FragmentCancelledOrdersDetail();
                         String strFragmentTag = newFragment.toString();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Details", arrOrders.get(position));
@@ -139,7 +156,7 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
                         transaction.commit();
 
                     }
-                }, MyApplication.RippleEffectsTime);
+                }, MyApplication.RippleEffectsTime);*/
 
 
             }
@@ -182,6 +199,22 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
             }
         });
 
+    }
+
+    private void addFragment(Fragment fragment,int position){
+        String backStateName = fragment.getClass().getName();
+        FragmentManager manager = activityContext.getFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+        if (!fragmentPopped){ //fragment not in back stack, create it.
+            FragmentTransaction ft = manager.beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("Details", arrOrders.get(position));
+            fragment .setArguments(bundle);
+            ft.add(R.id.fragmentmain, fragment);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(backStateName);
+            ft.commit();
+        }
     }
 
     public void ShowUpdateDialog(final Msg msg, final int pos){

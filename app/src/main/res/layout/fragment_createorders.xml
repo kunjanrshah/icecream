@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root"
     android:background="@android:color/white">
+
     <include
         android:id="@+id/layoutMain"
         layout="@layout/layout_top"
@@ -14,29 +15,30 @@
         android:id="@+id/lnRecords"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_above="@+id/btnSubmit"
-        android:layout_below="@+id/layoutMain">
+        android:layout_below="@+id/layoutMain"
+        android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/lnMainlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:visibility="gone"
             android:gravity="center_vertical"
-            >
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:visibility="gone">
+
             <TextView
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="18dp"
-               android:layout_marginLeft="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
                 android:text="@string/product_category"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtQty"
@@ -47,35 +49,33 @@
                 android:gravity="right"
                 android:text="Qty/PK.Type"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/total"
-                android:textStyle="bold"
-                android:textSize="18dp"
+                android:layout_marginRight="3dp"
                 android:gravity="center"
-                android:layout_marginRight="3dp"/>
+                android:text="@string/total"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycl_orders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            >
+            android:layout_marginRight="5dp">
 
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -83,52 +83,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="5dp"
-        android:visibility="gone"
-        android:gravity="center"
         android:paddingBottom="5dp"
-        >
+        android:visibility="gone">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/no_records"
-            />
+            android:src="@drawable/no_records" />
+
         <TextView
             android:id="@+id/txtNoRecords"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="No Pending Orders"
-            android:textSize="16dp"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            />
+            android:textSize="16dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit Order"
-        android:textSize="16dp"
-        android:visibility="gone"
         android:layout_alignParentBottom="true"
-        android:textColor="@color/Colorwhite"
         android:background="@color/colorPrimary"
-        />
+        android:text="Submit Order"
+        android:textColor="@color/Colorwhite"
+        android:textSize="16dp"
+        android:visibility="gone" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:backgroundTint="@color/colorPrimary"
-        android:src="@android:drawable/ic_input_add"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@android:drawable/ic_input_add" />
 
 </RelativeLayout>

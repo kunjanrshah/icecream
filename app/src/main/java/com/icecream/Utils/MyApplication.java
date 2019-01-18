@@ -27,6 +27,12 @@ public class MyApplication extends Application {
     public static String yyyy_mm_dd = "yyyy-MM-dd";
     public static String yyyy_mm_dd_hh_mm_ss = "yyyy-MM-dd HH:mm:ss";
     public static String dd_mm_yyyy = "dd-MM-yyyy";
+    public static String PENDING_ORDER="PendingOrder";
+    public static String CONFIRM_ORDER="ConfirmOrder";
+    public static String COMPLETE_ORDER="CompleteOrder";
+    public static String CANCELLED_ORDER="CancelOrder";
+    public static String UPDATE_ORDER="UpdateOrder";
+
 
     public void onCreate() {
         super.onCreate();

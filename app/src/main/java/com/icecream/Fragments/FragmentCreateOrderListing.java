@@ -71,6 +71,8 @@ import static com.icecream.Activities.HomeActivity.preferenceUtils;
 
 public class FragmentCreateOrderListing extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
+    public static Button btnSubmit;
+    public static LinearLayout lnMainlayout;
     public String CategoryName;
     public String ProductName;
     public String Qty;
@@ -89,14 +91,11 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
     Categoryresponse categoryresponse;
     Productsresponse productsresponse;
     ArrayList<String> arr_category = new ArrayList<>();
-
     FloatingActionButton fab_create;
     LinearLayout lnNoRecords;
     TextView txtNoRecords;
     CreatedOrdersAdapter adapter;
     String CategoryID = "0", ProductID = "0";
-    public static Button btnSubmit;
-    public static LinearLayout lnMainlayout;
     LinearLayout lnRecords;
     ArrayList<String> arr_productsId;
     ArrayList<String> arr_products;
@@ -109,8 +108,9 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
     private Context context;
     private Button imgMenu;
     private EditText edtQuantity;
-    private TextView txtTitle, txtTotal;
+    private TextView txtTitle, txtTotal, txt_qty_lbl;
     private List<OrderDetails> arrOrders = new ArrayList<>();
+    private int product_index = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -345,7 +345,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
         dialog.setContentView(layout);
 
-
+        txt_qty_lbl = (TextView) dialog.findViewById(R.id.txt_qty_lbl);
         edtQuantity = (EditText) dialog.findViewById(R.id.edtQuantity);
         Button btnAdd = (Button) dialog.findViewById(R.id.btnAdd);
         final ImageView imgCancel = (ImageView) dialog.findViewById(R.id.imgCancel);
@@ -354,14 +354,14 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
         spinnerProduct = (AppCompatSpinner) dialog.findViewById(R.id.spinnerProduct);
         spinnerCategory = (AppCompatSpinner) dialog.findViewById(R.id.spinnerCategory);
 
-     //   spinnerQuantity = (AppCompatSpinner) dialog.findViewById(R.id.spinnerQuantity);
+        //   spinnerQuantity = (AppCompatSpinner) dialog.findViewById(R.id.spinnerQuantity);
 
-      //  String[] some_array = getResources().getStringArray(R.array.array_Quantity);
-      //  ArrayAdapter arr_quality = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, some_array);
-      //  arr_quality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      //  spinnerQuantity.setAdapter(arr_quality);
+        //  String[] some_array = getResources().getStringArray(R.array.array_Quantity);
+        //  ArrayAdapter arr_quality = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, some_array);
+        //  arr_quality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //  spinnerQuantity.setAdapter(arr_quality);
 
-        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       /* spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinnerCategory.setSelection(position);
@@ -374,7 +374,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
 
         ArrayAdapter categoryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arr_category);
@@ -396,6 +396,37 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
             }
         });
 
+        spinnerProduct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    position = 1;
+                }
+                product_index = position - 1;
+                String carton_avail = arr_carton_availability.get(product_index);
+                if (carton_avail.equals("1")) {
+                    txt_qty_lbl.setText("Enter Quantity (Carton)");
+                } else {
+                    txt_qty_lbl.setText("Enter Quantity");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        /*spinnerProduct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerProduct.setSelection(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
 
       /*  myAutoComplete = (CustomAutoCompleteView) dialog.findViewById(R.id.myautocomplete);
         myAutoComplete.setThreshold(2);
@@ -480,17 +511,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
         });*/
 
-        spinnerProduct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spinnerProduct.setSelection(position);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 //          callWebserviceProducts();
 
         dialog.show();
@@ -498,8 +519,6 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
         imgCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
 
                 dialog.dismiss();
@@ -513,36 +532,59 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
 
                 CategoryName = spinnerCategory.getSelectedItem().toString();
                 ProductName = spinnerProduct.getSelectedItem().toString();
-                if (!CategoryName.toLowerCase().contains("select") && !ProductName.toLowerCase().contains("select")) {
-                    OrderDetails order = new OrderDetails();
-                    order.ProductID = arr_productsId.get(spinnerProduct.getSelectedItemPosition());
-                    order.CategoryID = CategoryID;
-                    order.CategoryName = CategoryName;
-                    order.ProductName = ProductName;
-                    order.Qty = "" + Integer.parseInt(edtQuantity.getText().toString().trim());
-                    order.PackingType = arr_packingType.get(spinnerProduct.getSelectedItemPosition() - 1);
-                    order.PricePerKG = arr_price_per_kg.get(spinnerProduct.getSelectedItemPosition() - 1);
-                    order.CartonAvailability = arr_carton_availability.get(spinnerProduct.getSelectedItemPosition() - 1);
-                    order.TotalCarton = arr_carton_qty.get(spinnerProduct.getSelectedItemPosition() - 1);
-                    arrOrders.add(order);
-                    adapter.notifyDataSetChanged();
-                    //  getTotalQuantity();
-                    getTotalPrice();
+                if (!edtQuantity.getText().toString().trim().isEmpty() && !CategoryName.toLowerCase().contains("select") && !ProductName.toLowerCase().contains("select")) {
+                    if (arr_carton_availability.get(product_index).equals("1")) {
+                        String limit = arr_carton_qty.get(product_index);
+                        String qty = edtQuantity.getText().toString().trim();
+                        try
+                        {
+                            if (Integer.parseInt(qty) > 0 && Integer.parseInt(qty) <= Integer.parseInt(limit)) {
+                                addOrder();
+                            } else {
+                                Toast.makeText(getActivity(), "Quantity is out of range", Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (Exception e)
+                        {
+                            Toast.makeText(getActivity(), "Quantity is invalid", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
 
-                    // myAutoComplete.setText("");
-                    // myautocompleteProduct.setText("");
-                    edtQuantity.setText("");
-                    spinnerProduct.setSelection(0);
-                   // edtQuantity.setSelection(edtQuantity.getText().toString().length());
-                    Toast.makeText(getActivity(), "Order Item is added to OrderList.", Toast.LENGTH_SHORT).show();
-                    btnSubmit.setVisibility(View.VISIBLE);
-                    lnMainlayout.setVisibility(View.VISIBLE);
+                    } else {
+                        addOrder();
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Select Order Item.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+    private void addOrder() {
+        OrderDetails order = new OrderDetails();
+        order.ProductID = arr_productsId.get(spinnerProduct.getSelectedItemPosition());
+        order.CategoryID = CategoryID;
+        order.CategoryName = CategoryName;
+        order.ProductName = ProductName;
+        order.Qty = "" + Integer.parseInt(edtQuantity.getText().toString().trim());
+        order.PackingType = arr_packingType.get(spinnerProduct.getSelectedItemPosition() - 1);
+        order.PricePerKG = arr_price_per_kg.get(spinnerProduct.getSelectedItemPosition() - 1);
+        order.CartonAvailability = arr_carton_availability.get(spinnerProduct.getSelectedItemPosition() - 1);
+        order.TotalCarton = arr_carton_qty.get(spinnerProduct.getSelectedItemPosition() - 1);
+        arrOrders.add(order);
+        adapter.notifyDataSetChanged();
+        //  getTotalQuantity();
+        getTotalPrice();
+
+        // myAutoComplete.setText("");
+        // myautocompleteProduct.setText("");
+        edtQuantity.setText("");
+        spinnerProduct.setSelection(0);
+        // edtQuantity.setSelection(edtQuantity.getText().toString().length());
+        Toast.makeText(getActivity(), "Order Item is added to OrderList.", Toast.LENGTH_SHORT).show();
+        btnSubmit.setVisibility(View.VISIBLE);
+        lnMainlayout.setVisibility(View.VISIBLE);
+    }
+
 
     public void getTotalPrice() {
         Double total = 0.0;
@@ -619,13 +661,14 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                 nameValuePairs.add(new BasicNameValuePair("DistributorCode", preferences.getDistributionResponse().DistributorCode));
                 for (int i = 0; i < arrOrders.size(); i++) {
 
-                    String strIDs = "ProductList[" + i + "][ProductId]";
-                    String strQtys = "ProductList[" + i + "][Qty]";
+                    String strIDs = "ProductList[" + i + "]";
+                    String strQtys = "QtyList[" + i + "]";
 
                     nameValuePairs.add(new BasicNameValuePair(strIDs, arrOrders.get(i).ProductID));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, arrOrders.get(i).Qty));
+
                     if (arrOrders.get(i).CartonAvailability.equalsIgnoreCase("1")) {
-                        String strCartons = "ProductList[" + i + "][TotalCarton]";
+                        String strCartons = "TotalCarton[" + i + "]";
                         nameValuePairs.add(new BasicNameValuePair(strCartons, arrOrders.get(i).TotalCarton));
                     }
                 }

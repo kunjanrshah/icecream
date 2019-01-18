@@ -166,9 +166,7 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
             public void onClick(View v) {
 
                 if (MyApplication.isInternetAvailable(activityContext)) {
-
-                    new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute("");
-
+                    new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute("CompleteOrder");
                 } else {
                     ((HomeActivity)activityContext).ShowAlert("Internet connection not available.");
                 }
@@ -294,12 +292,12 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
             try {
                 //add data
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                nameValuePairs.add(new BasicNameValuePair("ActionType", "UpdateOrder"));
+                nameValuePairs.add(new BasicNameValuePair("ActionType", data[0]));
                 nameValuePairs.add(new BasicNameValuePair("OrderId", OrderID));
                 for (int i = 0; i < order.size(); i++) {
 
-                    String strIDs = "ProductList[" + i + "][ProductId]";
-                    String strQtys = "ProductList[" + i + "][Qty]";
+                    String strIDs = "ProductList[" + i + "]";
+                    String strQtys = "QtyList[" + i + "]";
 
                     nameValuePairs.add(new BasicNameValuePair(strIDs, order.get(i).getProductId()));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, order.get(i).getActualQty()));

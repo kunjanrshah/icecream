@@ -113,7 +113,7 @@ public class ConfirmOrdersAdapter extends RecyclerView.Adapter<ConfirmOrdersAdap
 
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute("");
+                            new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute(MyApplication.PENDING_ORDER);
                         }
                     });
                     builder.show();
@@ -141,7 +141,7 @@ public class ConfirmOrdersAdapter extends RecyclerView.Adapter<ConfirmOrdersAdap
 
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute("");
+                            new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute(MyApplication.COMPLETE_ORDER);
                         }
                     });
                     builder.show();
@@ -301,12 +301,12 @@ public class ConfirmOrdersAdapter extends RecyclerView.Adapter<ConfirmOrdersAdap
             try {
                 //add data
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                nameValuePairs.add(new BasicNameValuePair("ActionType", "UpdateOrder"));
+                nameValuePairs.add(new BasicNameValuePair("ActionType", data[0]));
                 nameValuePairs.add(new BasicNameValuePair("OrderId", OrderID));
                 for (int i = 0; i < order.size(); i++) {
 
-                    String strIDs = "ProductList[" + i + "][ProductId]";
-                    String strQtys = "ProductList[" + i + "][Qty]";
+                    String strIDs = "ProductList[" + i + "]";
+                    String strQtys = "QtyList[" + i + "]";
 
                     nameValuePairs.add(new BasicNameValuePair(strIDs, order.get(i).getProductId()));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, order.get(i).getActualQty()));

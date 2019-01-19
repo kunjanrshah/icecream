@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mcontext=this;
         preferences=new SharepreferenceUtils(mcontext);
         InitControls();
-
     }
 
     private void InitControls(){

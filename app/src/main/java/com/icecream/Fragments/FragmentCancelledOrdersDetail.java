@@ -128,7 +128,7 @@ public class FragmentCancelledOrdersDetail extends Fragment implements View.OnCl
                 break;
             case R.id.imgBack:
 
-                ((HomeActivity) getActivity()).addFragment(new FragmentCancelledOrders());
+                ((HomeActivity) getActivity()).addFragment(new FragmentCancelledOrders(),"");
 
                 /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);

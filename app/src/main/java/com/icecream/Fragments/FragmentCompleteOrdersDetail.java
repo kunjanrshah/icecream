@@ -127,7 +127,7 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
                 break;
             case R.id.imgBack:
 
-                ((HomeActivity) getActivity()).addFragment(new FragmentCompleteOrders());
+                ((HomeActivity) getActivity()).addFragment(new FragmentCompleteOrders(),"");
 
                 /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);

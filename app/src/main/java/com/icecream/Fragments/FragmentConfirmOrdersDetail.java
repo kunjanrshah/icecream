@@ -134,7 +134,7 @@ public class FragmentConfirmOrdersDetail extends Fragment implements View.OnClic
                 break;
             case R.id.imgBack:
 
-                ((HomeActivity) getActivity()).addFragment(new FragmentConfirmOrders());
+                ((HomeActivity) getActivity()).addFragment(new FragmentConfirmOrders(),"");
 
                /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);

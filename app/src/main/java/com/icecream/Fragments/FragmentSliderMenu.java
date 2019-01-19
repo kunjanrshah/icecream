@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.icecream.Interface.SliderMenuClicks;
 import com.icecream.R;
+import com.icecream.Utils.MyApplication;
 import com.icecream.Utils.SharepreferenceUtils;
 
 
@@ -95,7 +96,7 @@ public class FragmentSliderMenu extends Fragment implements View.OnClickListener
                 menuClicks.MenuItemsClicks("ConfirmOrders");
                 break;
             case R.id.lnPendingOrders:
-                menuClicks.MenuItemsClicks("PendingOrders");
+                menuClicks.MenuItemsClicks(MyApplication.PENDING_ORDERS);
                 break;
             case R.id.lnLogout:
                 menuClicks.MenuItemsClicks("Logout");

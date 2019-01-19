@@ -51,7 +51,7 @@ public class FragmentPendingOrders extends Fragment implements View.OnClickListe
     private TextView txtTitle;
     SharepreferenceUtils preferences;
     RelativeLayout root;
-    String ActionType="PendingOrders";
+    String ActionType=MyApplication.PENDING_ORDERS;
     RecyclerView recycl_orders;
     PendingOrderResponse  pendingOrderResponse;
 

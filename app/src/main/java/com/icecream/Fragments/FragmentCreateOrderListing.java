@@ -86,7 +86,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
     public ArrayAdapter<com.icecream.Models.Products.Msg> myProductAdapter;
     SharepreferenceUtils preferences;
     RelativeLayout root;
-    String ActionType = "PendingOrders";
+    String ActionType = MyApplication.PENDING_ORDERS;
     RecyclerView recycl_orders;
     Categoryresponse categoryresponse;
     Productsresponse productsresponse;
@@ -536,15 +536,13 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                     if (arr_carton_availability.get(product_index).equals("1")) {
                         String limit = arr_carton_qty.get(product_index);
                         String qty = edtQuantity.getText().toString().trim();
-                        try
-                        {
+                        try {
                             if (Integer.parseInt(qty) > 0 && Integer.parseInt(qty) <= Integer.parseInt(limit)) {
                                 addOrder();
                             } else {
                                 Toast.makeText(getActivity(), "Quantity is out of range", Toast.LENGTH_SHORT).show();
                             }
-                        }catch (Exception e)
-                        {
+                        } catch (Exception e) {
                             Toast.makeText(getActivity(), "Quantity is invalid", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
@@ -657,20 +655,27 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                 //add data
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("OrderDate", data[0]));
-                nameValuePairs.add(new BasicNameValuePair("ActionType", "CreateOrder"));
-                nameValuePairs.add(new BasicNameValuePair("DistributorCode", preferences.getDistributionResponse().DistributorCode));
+
+                if (preferenceUtils.getloginType().trim().equals("Admin")) {
+                    nameValuePairs.add(new BasicNameValuePair("ActionType", "EditOrder"));
+                    nameValuePairs.add(new BasicNameValuePair("DistributorCode", getArguments().getString("distributorCode")));
+                } else {
+                     nameValuePairs.add(new BasicNameValuePair("ActionType", "CreateOrder"));
+                     nameValuePairs.add(new BasicNameValuePair("DistributorCode", preferences.getDistributionResponse().DistributorCode));
+                }
+
                 for (int i = 0; i < arrOrders.size(); i++) {
 
-                    String strIDs = "ProductList[" + i + "]";
-                    String strQtys = "QtyList[" + i + "]";
+                    String strIDs = "ProductList[" + i + "][ProductId]";
+                    String strQtys = "ProductList[" + i + "][Qty]";
 
                     nameValuePairs.add(new BasicNameValuePair(strIDs, arrOrders.get(i).ProductID));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, arrOrders.get(i).Qty));
 
-                    if (arrOrders.get(i).CartonAvailability.equalsIgnoreCase("1")) {
+                   /* if (arrOrders.get(i).CartonAvailability.equalsIgnoreCase("1")) {
                         String strCartons = "TotalCarton[" + i + "]";
                         nameValuePairs.add(new BasicNameValuePair(strCartons, arrOrders.get(i).TotalCarton));
-                    }
+                    }*/
                 }
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 //execute http post

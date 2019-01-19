@@ -113,7 +113,7 @@ public class ConfirmOrdersAdapter extends RecyclerView.Adapter<ConfirmOrdersAdap
 
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute(MyApplication.PENDING_ORDER);
+                            new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute("MarkAsPending");
                         }
                     });
                     builder.show();
@@ -305,8 +305,8 @@ public class ConfirmOrdersAdapter extends RecyclerView.Adapter<ConfirmOrdersAdap
                 nameValuePairs.add(new BasicNameValuePair("OrderId", OrderID));
                 for (int i = 0; i < order.size(); i++) {
 
-                    String strIDs = "ProductList[" + i + "]";
-                    String strQtys = "QtyList[" + i + "]";
+                    String strIDs = "ProductList[" + i + "][ProductId]";
+                    String strQtys = "ProductList[" + i + "][Qty]";
 
                     nameValuePairs.add(new BasicNameValuePair(strIDs, order.get(i).getProductId()));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, order.get(i).getActualQty()));
@@ -343,7 +343,7 @@ public class ConfirmOrdersAdapter extends RecyclerView.Adapter<ConfirmOrdersAdap
 
                 if (loginObj.getInt("status") == 1) {
 
-                    ((HomeActivity) activityContext).MenuItemsClicks("PendingOrders");
+                    ((HomeActivity) activityContext).MenuItemsClicks(MyApplication.PENDING_ORDERS);
 
                     ((HomeActivity) activityContext).ShowAlert("Order Update Successfully");
                 } else {

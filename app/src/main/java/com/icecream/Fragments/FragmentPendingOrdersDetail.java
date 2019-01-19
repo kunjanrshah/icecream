@@ -37,7 +37,7 @@ public class FragmentPendingOrdersDetail extends Fragment implements View.OnClic
 
     SharepreferenceUtils preferences;
     RelativeLayout root;
-    String ActionType = "PendingOrders";
+    String ActionType = MyApplication.PENDING_ORDERS;
     RecyclerView recycl_orders;
     PendingOrderResponse pendingOrderResponse;
     LinearLayout lnNoRecords;
@@ -145,7 +145,7 @@ public class FragmentPendingOrdersDetail extends Fragment implements View.OnClic
             case R.id.root:
                 break;
             case R.id.imgBack:
-                addFragment(new FragmentPendingOrders());
+                addFragment(new FragmentPendingOrders(),"");
 
                 /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);
@@ -159,7 +159,8 @@ public class FragmentPendingOrdersDetail extends Fragment implements View.OnClic
                 break;
             case R.id.txtAddItem:
 
-                addFragment(new FragmentCreateOrderListing());
+
+                addFragment(new FragmentCreateOrderListing(),detailResponse.getDistributorCode());
 
                 //FragmentTransaction transaction1 = getFragmentManager().beginTransaction();
                 // Fragment fragment1 = getFragmentManager().findFragmentById(R.id.sliderFraagment);

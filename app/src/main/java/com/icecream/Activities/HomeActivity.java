@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity implements SliderMenuClicks 
         InitControls();
 
         if (preferenceUtils.getloginType().trim().equals("Admin")) {
-            MenuItemsClicks("PendingOrders"); // default home screen display
+            MenuItemsClicks(MyApplication.PENDING_ORDERS); // default home screen display
         } else {
             MenuItemsClicks("CreateOrder"); // default home screen display
         }
@@ -97,7 +97,7 @@ public class HomeActivity extends AppCompatActivity implements SliderMenuClicks 
         switch (tag) {
             case "Profile":
                 break;
-            case "PendingOrders":
+            case MyApplication.PENDING_ORDERS:
                 addFragmentHome(new FragmentPendingOrders());
                /* newFragment = new FragmentPendingOrders();
                 strFragmentTag = newFragment.toString();
@@ -156,11 +156,14 @@ public class HomeActivity extends AppCompatActivity implements SliderMenuClicks 
         }
     }
 
-   public static void addFragment(Fragment fragment){
+   public static void addFragment(Fragment fragment,String distributorCode){
         String backStateName = fragment.getClass().getName();
         boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
         if (!fragmentPopped){ //fragment not in back stack, create it.
             FragmentTransaction ft = manager.beginTransaction();
+            Bundle mBundle=new Bundle();
+            mBundle.putString("distributorCode",distributorCode);
+            fragment.setArguments(mBundle);
             ft.add(R.id.fragmentmain, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.addToBackStack(backStateName);

@@ -175,7 +175,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
 
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),position).execute(MyApplication.CONFIRM_ORDER);
+                            new CallWS(arrOrders.get(position).getOrderDetails(),arrOrders.get(position).getOrderId(),arrOrders.get(position).getDistributorCode(),position).execute(MyApplication.CONFIRM_ORDER);
                         }
                     });
                     builder.show();
@@ -271,7 +271,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
                  if (MyApplication.isInternetAvailable(activityContext)) {
                      dialog.dismiss();
 
-                    new CallWS(UpdateOrderDetailAdapter.arrOrders,msg.getOrderId(),pos).execute(MyApplication.UPDATE_ORDER);
+                    new CallWS(UpdateOrderDetailAdapter.arrOrders,msg.getOrderId(),msg.getDistributorCode(),pos).execute(MyApplication.UPDATE_ORDER);
 
                 } else {
                     ((HomeActivity)activityContext).ShowAlert("Internet connection not available.");
@@ -292,13 +292,14 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         public  List<OrderDetail> order;
         Integer position;
         String OrderID="";
+        String DistributorCode="";
 
-        public CallWS(List<OrderDetail> arrOrders,String orderId, int pos) {
+        public CallWS(List<OrderDetail> arrOrders,String orderId,String DistributorCode, int pos) {
             order = arrOrders;
             position=pos;
             OrderID=orderId;
+            this.DistributorCode=DistributorCode;
         }
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -316,10 +317,21 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("ActionType", data[0]));
                 nameValuePairs.add(new BasicNameValuePair("OrderId", OrderID));
-                for (int i = 0; i < order.size(); i++) {
 
-                    String strIDs = "ProductList[" + i + "]";
-                    String strQtys = "QtyList[" + i + "]";
+                nameValuePairs.add(new BasicNameValuePair("DistributorCode", DistributorCode));
+
+                for (int i = 0; i < order.size(); i++) {
+                    String strIDs,strQtys="";
+                    if(data[0].equalsIgnoreCase(MyApplication.UPDATE_ORDER))
+                    {
+                        strIDs = "ProductList[" + i + "]";
+                        strQtys = "QtyList[" + i + "]";
+                    }else
+                    {
+                        strIDs = "ProductList[" + i + "][ProductId]";
+                        strQtys = "ProductList[" + i + "][Qty]";
+                    }
+
 
                     nameValuePairs.add(new BasicNameValuePair(strIDs, order.get(i).getProductId()));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, order.get(i).getActualQty()));
@@ -356,7 +368,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
 
                 if (loginObj.getInt("status") == 1) {
 
-                    ((HomeActivity) activityContext).MenuItemsClicks("PendingOrders");
+                    ((HomeActivity) activityContext).MenuItemsClicks(MyApplication.PENDING_ORDERS);
 
                     ((HomeActivity) activityContext).ShowAlert("Order Update Successfully");
                 } else {
@@ -375,7 +387,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
     private void callWebserviceCancelOrder( String orderID) {
 
         WebserviceInterface api= RetrofitAPI.getObject();
-        Call<String> pending=api.CancelOrder("CancelOrder",orderID);
+        Call<String> pending=api.CancelOrder(MyApplication.CANCEL_ORDER,orderID);
 
         MyApplication.showProgressDialog(activityContext); // show progressDialog
         pending.enqueue(new Callback<String>() {

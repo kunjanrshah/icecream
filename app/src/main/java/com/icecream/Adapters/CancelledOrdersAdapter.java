@@ -296,8 +296,8 @@ public class CancelledOrdersAdapter extends RecyclerView.Adapter<CancelledOrders
                 nameValuePairs.add(new BasicNameValuePair("OrderId", OrderID));
                 for (int i = 0; i < order.size(); i++) {
 
-                    String strIDs = "ProductList[" + i + "]";
-                    String strQtys = "QtyList[" + i + "]";
+                    String strIDs = "ProductList[" + i + "][ProductId]";
+                    String strQtys = "ProductList[" + i + "][Qty]";
 
                     nameValuePairs.add(new BasicNameValuePair(strIDs, order.get(i).getProductId()));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, order.get(i).getActualQty()));

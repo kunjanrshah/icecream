@@ -68,9 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-
                         callWebservice();
-
                     }
                 }, MyApplication.RippleEffectsTime);
 

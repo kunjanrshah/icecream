@@ -2,18 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.icecream">
-    <meta-data
-        tools:replace="android:value"
-        android:name="android.support.VERSION"
-        android:value="25.4.0" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-    <permission android:name="com.icecream.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
 
-    <uses-permission android:name="com.icecream.permission.C2D_MESSAGE"/>
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="25.4.0"
+        tools:replace="android:value" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.icecream.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.icecream.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,25 +29,36 @@
         android:theme="@style/NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".Activities.SplashActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme">
+        <activity
+            android:name=".Activities.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.LoginActivity" android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity android:name=".Activities.HomeActivity" android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activities.HomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <service android:name=".MyFirebaseMessagingService" android:exported="true">
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".MyFirebaseInstanceIDService" android:exported="true">
+        <service
+            android:name=".MyFirebaseInstanceIDService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

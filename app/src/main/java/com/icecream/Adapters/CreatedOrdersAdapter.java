@@ -46,7 +46,13 @@ public class CreatedOrdersAdapter extends RecyclerView.Adapter<CreatedOrdersAdap
         holder.txtName.setText(arrOrders.get(position).ProductName);
         holder.txtcategory.setText(arrOrders.get(position).CategoryName);
 
-        Double totalPrice = Double.parseDouble(arrOrders.get(position).PricePerKG) * (Integer.parseInt(arrOrders.get(position).Qty));
+        Double totalPrice = 0.0d;
+        if (arrOrders.get(position).CartonAvailability.equals("1")) {
+            totalPrice = Double.parseDouble(arrOrders.get(position).PricePerKG) * (Integer.parseInt(arrOrders.get(position).Qty) * (Integer.parseInt(arrOrders.get(position).TotalCarton)));
+        } else {
+            totalPrice = Double.parseDouble(arrOrders.get(position).PricePerKG) * (Integer.parseInt(arrOrders.get(position).Qty));
+        }
+
         holder.txtPackingType.setText(arrOrders.get(position).PackingType);
         holder.txtPrice.setText("Rs. " + totalPrice);
         holder.txtQty.setText(arrOrders.get(position).Qty);
@@ -68,12 +74,10 @@ public class CreatedOrdersAdapter extends RecyclerView.Adapter<CreatedOrdersAdap
                             ((FragmentCreateOrderListing) oldFragment).getTotalPrice();
                             // ((FragmentCreateOrderListing)oldFragment).getTotalQuantity();
                         }
-                        if (arrOrders.size() != 0)
-                        {
+                        if (arrOrders.size() != 0) {
                             btnSubmit.setVisibility(View.VISIBLE);
                             FragmentCreateOrderListing.lnMainlayout.setVisibility(View.VISIBLE);
-                        }else
-                        {
+                        } else {
                             btnSubmit.setVisibility(View.GONE);
                             FragmentCreateOrderListing.lnMainlayout.setVisibility(View.GONE);
                         }

@@ -24,7 +24,7 @@ public class CancelledOrderDetailAdapter extends RecyclerView.Adapter<CancelledO
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName,txtQty,txtAmount;
+        public TextView txtName,txtQty,txtAmount,txtCategory;
 
         public LinearLayout lnMainlayout;
 
@@ -33,6 +33,7 @@ public class CancelledOrderDetailAdapter extends RecyclerView.Adapter<CancelledO
             txtName = (TextView) view.findViewById(R.id.txtName);
             txtQty = (TextView) view.findViewById(R.id.txtQty);
             txtAmount = (TextView) view.findViewById(R.id.txtAmount);
+            txtCategory = (TextView) view.findViewById(R.id.txtCategory);
             lnMainlayout= (LinearLayout) view.findViewById(R.id.lnMainlayout);
         }
     }
@@ -51,6 +52,7 @@ public class CancelledOrderDetailAdapter extends RecyclerView.Adapter<CancelledO
 
 
         holder.txtName.setText(arrOrders.get(position).getProductName());
+        holder.txtCategory.setText(arrOrders.get(position).getCategory());
         holder.txtAmount.setText(arrOrders.get(position).getActualTotalPrice());
         holder.txtQty.setText(arrOrders.get(position).getActualQty());
 

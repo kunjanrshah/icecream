@@ -405,7 +405,7 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                 product_index = position - 1;
                 String carton_avail = arr_carton_availability.get(product_index);
                 if (carton_avail.equals("1")) {
-                    txt_qty_lbl.setText("Enter Quantity (Carton)");
+                    txt_qty_lbl.setText("Enter Quantity (caret)");
                 } else {
                     txt_qty_lbl.setText("Enter Quantity");
                 }
@@ -531,19 +531,24 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
             public void onClick(View v) {
 
                 CategoryName = spinnerCategory.getSelectedItem().toString();
+                if (spinnerProduct.getSelectedItem() == null) {
+                    Toast.makeText(getActivity(), "Select Product!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ProductName = spinnerProduct.getSelectedItem().toString();
                 if (!edtQuantity.getText().toString().trim().isEmpty() && !CategoryName.toLowerCase().contains("select") && !ProductName.toLowerCase().contains("select")) {
                     if (arr_carton_availability.get(product_index).equals("1")) {
-                        String limit = arr_carton_qty.get(product_index);
+                        //String limit = arr_carton_qty.get(product_index);
                         String qty = edtQuantity.getText().toString().trim();
                         try {
-                            if (Integer.parseInt(qty) > 0 && Integer.parseInt(qty) <= Integer.parseInt(limit)) {
+                            //  if (Integer.parseInt(qty) > 0 && Integer.parseInt(qty) <= Integer.parseInt(limit)) {
+                            if (Integer.parseInt(qty) > 0 && Integer.parseInt(qty) <= 50) {
                                 addOrder();
                             } else {
                                 Toast.makeText(getActivity(), "Quantity is out of range", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
-                            Toast.makeText(getActivity(), "Quantity is invalid", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Something is wrong", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
 
@@ -660,15 +665,19 @@ public class FragmentCreateOrderListing extends Fragment implements View.OnClick
                     nameValuePairs.add(new BasicNameValuePair("ActionType", "EditOrder"));
                     nameValuePairs.add(new BasicNameValuePair("DistributorCode", getArguments().getString("distributorCode")));
                 } else {
-                     nameValuePairs.add(new BasicNameValuePair("ActionType", "CreateOrder"));
-                     nameValuePairs.add(new BasicNameValuePair("DistributorCode", preferences.getDistributionResponse().DistributorCode));
+                    nameValuePairs.add(new BasicNameValuePair("ActionType", "CreateOrder"));
+                    nameValuePairs.add(new BasicNameValuePair("DistributorCode", preferences.getDistributionResponse().DistributorCode));
                 }
 
                 for (int i = 0; i < arrOrders.size(); i++) {
 
                     String strIDs = "ProductList[" + i + "][ProductId]";
-                    String strQtys = "ProductList[" + i + "][Qty]";
-
+                    String strQtys = "";
+                    if (arrOrders.get(i).CartonAvailability.equals("1")) {
+                        strQtys = "ProductList[" + i + "][TotalCarton]";
+                    } else {
+                        strQtys = "ProductList[" + i + "][Qty]";
+                    }
                     nameValuePairs.add(new BasicNameValuePair(strIDs, arrOrders.get(i).ProductID));
                     nameValuePairs.add(new BasicNameValuePair(strQtys, arrOrders.get(i).Qty));
 

@@ -3,6 +3,7 @@
     <string name="total">Qty:3\nRs. 408.0</string>
     <string name="product_category">Product/\nCategory</string>
 
+    <bool name="is_side_ebu">false</bool>
 
     <string-array name="array_Quantity">
         <item>1</item>

@@ -1,7 +1,6 @@
 package com.icecream.Fragments;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -68,7 +67,7 @@ public class FragmentCancelledOrdersDetail extends Fragment implements View.OnCl
     private void InitControls(View v) {
 
         Bundle bundle = getArguments();
-        detailResponse= (Msg) bundle.getSerializable("Details");
+        detailResponse = (Msg) bundle.getSerializable("Details");
 
         txtOrderID = (TextView) v.findViewById(R.id.txtOrderID);
         txtCreatedDate = (TextView) v.findViewById(R.id.txtCreatedDate);
@@ -78,31 +77,36 @@ public class FragmentCancelledOrdersDetail extends Fragment implements View.OnCl
         txtQty = (TextView) v.findViewById(R.id.txtQty);
 
         imgMenu = (Button) v.findViewById(R.id.imgMenu);
-        imgBack= (Button) v.findViewById(R.id.imgBack);
+        imgBack = (Button) v.findViewById(R.id.imgBack);
         imgMenu.setVisibility(View.GONE);
         imgBack.setVisibility(View.VISIBLE);
         txtTitle = (TextView) v.findViewById(R.id.txtTitle);
         txtTitle.setText("Order Detail");
 
-        root= (RelativeLayout) v.findViewById(R.id.root);
-        recycl_orders= (RecyclerView) v.findViewById(R.id.recycl_orders);
-        txtNoRecords= (TextView) v.findViewById(R.id.txtNoRecords);
-        lnNoRecords= (LinearLayout) v.findViewById(R.id.lnNoRecords);
+        root = (RelativeLayout) v.findViewById(R.id.root);
+        recycl_orders = (RecyclerView) v.findViewById(R.id.recycl_orders);
+        txtNoRecords = (TextView) v.findViewById(R.id.txtNoRecords);
+        lnNoRecords = (LinearLayout) v.findViewById(R.id.lnNoRecords);
+        try {
+            txtName.setText(detailResponse.getFullName());
+            txtAmount.setText("Rs. " + detailResponse.getActualAmount());
+            txtOrderID.setText("#" + detailResponse.getCustomerOrderId());
+            String updated = MyApplication.parseDateToddMMyyyy(detailResponse.getUpdatedOn(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
+            txtCreatedDate.setText(updated);
+            String orderdate = MyApplication.parseDateToddMMyyyy(detailResponse.getOrderDate(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
+            txtRequestedDate.setText(orderdate);
+            /*int qty = 0;
+            for (int i = 0; i < detailResponse.getOrderDetails().size(); i++) {
+                qty = qty + Integer.parseInt(detailResponse.getOrderDetails().get(i).getActualQty());
+            }*/
+            String qty=detailResponse.getCBInfo().get(0).getTB()+"B/"+detailResponse.getCBInfo().get(0).getTC()+"C";
 
-        txtName.setText(detailResponse.getFullName());
-        txtAmount.setText("Rs. " + detailResponse.getActualAmount());
-        txtOrderID.setText("#" + detailResponse.getCustomerOrderId());
-        String updated = MyApplication.parseDateToddMMyyyy(detailResponse.getUpdatedOn(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
-        txtCreatedDate.setText(updated);
-        String orderdate = MyApplication.parseDateToddMMyyyy(detailResponse.getOrderDate(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
-        txtRequestedDate.setText(orderdate);
-        int qty = 0;
-        for (int i = 0; i < detailResponse.getOrderDetails().size(); i++) {
-            qty = qty + Integer.parseInt(detailResponse.getOrderDetails().get(i).getActualQty());
+            txtQty.setText("" + qty);
+            SetAdapter();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        txtQty.setText("" + qty);
 
-        SetAdapter();
     }
 
     private void ClicksListener() {
@@ -128,7 +132,7 @@ public class FragmentCancelledOrdersDetail extends Fragment implements View.OnCl
                 break;
             case R.id.imgBack:
 
-                ((HomeActivity) getActivity()).addFragment(new FragmentCancelledOrders(),"");
+                ((HomeActivity) getActivity()).addFragment(new FragmentCancelledOrders(), "");
 
                 /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);
@@ -138,7 +142,7 @@ public class FragmentCancelledOrdersDetail extends Fragment implements View.OnCl
                 transaction.add(R.id.fragmentmain, newFragment,strFragmentTag);
                 transaction.commit();*/
 
-               // getActivity().onBackPressed();
+                // getActivity().onBackPressed();
                 break;
         }
 

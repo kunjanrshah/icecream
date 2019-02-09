@@ -1,8 +1,6 @@
 package com.icecream.Fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -107,19 +105,24 @@ public class FragmentPendingOrdersDetail extends Fragment implements View.OnClic
 
         // String date[] = detailResponse.getOrderDate().split(" ");
         // txtDate.setText(date[0]);
-        txtName.setText(detailResponse.getFullName());
-        txtAmount.setText("Rs. " + detailResponse.getActualAmount());
-        txtOrderID.setText("#" + detailResponse.getCustomerOrderId());
-        String updated = MyApplication.parseDateToddMMyyyy(detailResponse.getUpdatedOn(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
-        txtCreatedDate.setText(updated);
-        String orderdate = MyApplication.parseDateToddMMyyyy(detailResponse.getOrderDate(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
-        txtRequestedDate.setText(orderdate);
-        int qty = 0;
-        for (int i = 0; i < detailResponse.getOrderDetails().size(); i++) {
-            qty = qty + Integer.parseInt(detailResponse.getOrderDetails().get(i).getActualQty());
+        try {
+            txtName.setText(detailResponse.getFullName());
+            txtAmount.setText("Rs. " + detailResponse.getActualAmount());
+            txtOrderID.setText("#" + detailResponse.getCustomerOrderId());
+            String updated = MyApplication.parseDateToddMMyyyy(detailResponse.getUpdatedOn(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
+            txtCreatedDate.setText(updated);
+            String orderdate = MyApplication.parseDateToddMMyyyy(detailResponse.getOrderDate(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
+            txtRequestedDate.setText(orderdate);
+           /* int qty = 0;
+            for (int i = 0; i < detailResponse.getOrderDetails().size(); i++) {
+                qty = qty + Integer.parseInt(detailResponse.getOrderDetails().get(i).getActualQty());
+            }*/
+            String qty=detailResponse.getCBInfo().get(0).getTB()+"B/"+detailResponse.getCBInfo().get(0).getTC()+"C";
+            txtQty.setText("" + qty);
+            SetAdapter();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        txtQty.setText("" + qty);
-        SetAdapter();
     }
 
     private void ClicksListener() {
@@ -145,7 +148,7 @@ public class FragmentPendingOrdersDetail extends Fragment implements View.OnClic
             case R.id.root:
                 break;
             case R.id.imgBack:
-                addFragment(new FragmentPendingOrders(),"");
+                addFragment(new FragmentPendingOrders(), "");
 
                 /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);
@@ -160,7 +163,7 @@ public class FragmentPendingOrdersDetail extends Fragment implements View.OnClic
             case R.id.txtAddItem:
 
 
-                addFragment(new FragmentCreateOrderListing(),detailResponse.getDistributorCode());
+                addFragment(new FragmentCreateOrderListing(), detailResponse.getDistributorCode());
 
                 //FragmentTransaction transaction1 = getFragmentManager().beginTransaction();
                 // Fragment fragment1 = getFragmentManager().findFragmentById(R.id.sliderFraagment);
@@ -174,10 +177,6 @@ public class FragmentPendingOrdersDetail extends Fragment implements View.OnClic
         }
 
     }
-
-
-
-
 
 
     private void SetAdapter() {

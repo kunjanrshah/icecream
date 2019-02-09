@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:background="@android:color/white">
 
@@ -72,8 +73,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:visibility="gone"
+        app:backgroundTint="@color/colorPrimary"
         android:background="@color/colorPrimary"
-        android:tint="@color/colorPrimary"
         android:src="@android:drawable/ic_input_add"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

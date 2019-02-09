@@ -1,7 +1,6 @@
 package com.icecream.Fragments;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,25 +23,24 @@ import com.icecream.R;
 import com.icecream.Utils.MyApplication;
 
 
-public class FragmentCompleteOrdersDetail extends Fragment implements View.OnClickListener{
+public class FragmentCompleteOrdersDetail extends Fragment implements View.OnClickListener {
 
-    private Context context;
-    private Button imgMenu,imgBack;
-    private TextView txtTitle,txtName,txtAmount;
-    private TextView txtOrderID;
-    private TextView txtCreatedDate;
-    private TextView txtRequestedDate;
-    private TextView txtQty;
     //    SharepreferenceUtils preferences;
     RelativeLayout root;
     RecyclerView recycl_orders;
-    String ActionType="CompletedOrders";
+    String ActionType = "CompletedOrders";
     CompleteOrderResponse OrderResponse;
     LinearLayout lnNoRecords;
     TextView txtNoRecords;
     CompleteOrderDetailAdapter adapter;
     Msg detailResponse;
-
+    private Context context;
+    private Button imgMenu, imgBack;
+    private TextView txtTitle, txtName, txtAmount;
+    private TextView txtOrderID;
+    private TextView txtCreatedDate;
+    private TextView txtRequestedDate;
+    private TextView txtQty;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -66,7 +64,7 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
     private void InitControls(View v) {
 
         Bundle bundle = getArguments();
-        detailResponse= (Msg) bundle.getSerializable("Details");
+        detailResponse = (Msg) bundle.getSerializable("Details");
 
         txtOrderID = (TextView) v.findViewById(R.id.txtOrderID);
         txtCreatedDate = (TextView) v.findViewById(R.id.txtCreatedDate);
@@ -76,35 +74,40 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
         txtQty = (TextView) v.findViewById(R.id.txtQty);
 
         imgMenu = (Button) v.findViewById(R.id.imgMenu);
-        imgBack= (Button) v.findViewById(R.id.imgBack);
+        imgBack = (Button) v.findViewById(R.id.imgBack);
         imgMenu.setVisibility(View.GONE);
         imgBack.setVisibility(View.VISIBLE);
 
         txtTitle = (TextView) v.findViewById(R.id.txtTitle);
         txtTitle.setText("Order Detail");
 
-        root= (RelativeLayout) v.findViewById(R.id.root);
-        recycl_orders= (RecyclerView) v.findViewById(R.id.recycl_orders);
-        txtNoRecords= (TextView) v.findViewById(R.id.txtNoRecords);
-        lnNoRecords= (LinearLayout) v.findViewById(R.id.lnNoRecords);
+        root = (RelativeLayout) v.findViewById(R.id.root);
+        recycl_orders = (RecyclerView) v.findViewById(R.id.recycl_orders);
+        txtNoRecords = (TextView) v.findViewById(R.id.txtNoRecords);
+        lnNoRecords = (LinearLayout) v.findViewById(R.id.lnNoRecords);
+        try {
+            txtName.setText(detailResponse.getFullName());
+            txtAmount.setText("Rs. " + detailResponse.getActualAmount());
+            txtOrderID.setText("#" + detailResponse.getCustomerOrderId());
+            String updated = MyApplication.parseDateToddMMyyyy(detailResponse.getUpdatedOn(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
+            txtCreatedDate.setText(updated);
+            String orderdate = MyApplication.parseDateToddMMyyyy(detailResponse.getOrderDate(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
+            txtRequestedDate.setText(orderdate);
+            /*int qty = 0;
+            for (int i = 0; i < detailResponse.getOrderDetails().size(); i++) {
+                qty = qty + Integer.parseInt(detailResponse.getOrderDetails().get(i).getActualQty());
+            }*/
+            String qty=detailResponse.getCBInfo().get(0).getTB()+"B/"+detailResponse.getCBInfo().get(0).getTC()+"C";
 
-        txtName.setText(detailResponse.getFullName());
-        txtAmount.setText("Rs. " + detailResponse.getActualAmount());
-        txtOrderID.setText("#" + detailResponse.getCustomerOrderId());
-        String updated = MyApplication.parseDateToddMMyyyy(detailResponse.getUpdatedOn(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
-        txtCreatedDate.setText(updated);
-        String orderdate = MyApplication.parseDateToddMMyyyy(detailResponse.getOrderDate(), MyApplication.yyyy_mm_dd_hh_mm_ss, MyApplication.dd_mm_yyyy);
-        txtRequestedDate.setText(orderdate);
-        int qty = 0;
-        for (int i = 0; i < detailResponse.getOrderDetails().size(); i++) {
-            qty = qty + Integer.parseInt(detailResponse.getOrderDetails().get(i).getActualQty());
+            txtQty.setText("" + qty);
+            SetAdapter();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        txtQty.setText("" + qty);
 
-        SetAdapter();
     }
 
-    private void ClicksListener(){
+    private void ClicksListener() {
         imgMenu.setOnClickListener(this);
         root.setOnClickListener(this);
         imgBack.setOnClickListener(this);
@@ -119,15 +122,15 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.imgMenu:
-                ((HomeActivity)context).OpenDrawer();
+                ((HomeActivity) context).OpenDrawer();
                 break;
             case R.id.root:
                 break;
             case R.id.imgBack:
 
-                ((HomeActivity) getActivity()).addFragment(new FragmentCompleteOrders(),"");
+                ((HomeActivity) getActivity()).addFragment(new FragmentCompleteOrders(), "");
 
                 /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.sliderFraagment);
@@ -142,8 +145,8 @@ public class FragmentCompleteOrdersDetail extends Fragment implements View.OnCli
 
     }
 
-    private  void SetAdapter(){
-        adapter=new CompleteOrderDetailAdapter(getActivity(),detailResponse.getOrderDetails());
+    private void SetAdapter() {
+        adapter = new CompleteOrderDetailAdapter(getActivity(), detailResponse.getOrderDetails());
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recycl_orders.setLayoutManager(llm);

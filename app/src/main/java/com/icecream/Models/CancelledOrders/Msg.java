@@ -43,6 +43,20 @@ public class Msg implements Serializable {
     @Expose
     private List<OrderDetail> orderDetails = null;
 
+
+    public List<com.icecream.Models.CancelledOrders.CBInfo> getCBInfo() {
+        return CBInfo;
+    }
+
+    public void setCBInfo(List<com.icecream.Models.CancelledOrders.CBInfo> CBInfo) {
+        this.CBInfo = CBInfo;
+    }
+
+    @SerializedName("CBInfo")
+    @Expose
+    private List<CBInfo> CBInfo = null;
+
+
     public String getOrderId() {
         return orderId;
     }
